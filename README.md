@@ -12,5 +12,7 @@ A UI for the Resumer API created with React, Redux.
   - Client side routing
 - jwt-decode
   - Decoding JSON Web Tokens
+- [UIKit](https://getuikit.com/)
+  - UI framework
 - [SpinKit](http://tobiasahlin.com/spinkit/)
   - Simple CSS spinners
