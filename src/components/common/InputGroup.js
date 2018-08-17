@@ -12,22 +12,20 @@ const InputGroup = ({
   onChange
 }) => {
   return (
-    <div className="input-group mb-3">
-      <div className="input-group-prepend">
-        <span className="input-group-text">
-          <i className={icon} />
-        </span>
+    <div className="uk-margin">
+      <div className="uk-inline">
+        <span className="uk-form-icon" uk-icon={icon} />
+        <input
+          className={classnames('uk-input', {
+            'uk-form-danger': error
+          })}
+          placeholder={placeholder}
+          name={name}
+          value={value}
+          onChange={onChange}
+        />
       </div>
-      <input
-        className={classnames('form-control form-control-lg', {
-          'is-invalid': error
-        })}
-        placeholder={placeholder}
-        name={name}
-        value={value}
-        onChange={onChange}
-      />
-      {error && <div className="invalid-feedback">{error}</div>}
+      {error && <p className="uk-text-danger">{error}</p>}
     </div>
   );
 };

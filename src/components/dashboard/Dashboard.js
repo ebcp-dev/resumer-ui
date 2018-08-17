@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profileActions';
+
+import '../../css/components/dashboard/Dashboard.css';
 import LoadingComponent from '../common/LoadingComponent';
 
 class Dashboard extends Component {
@@ -22,17 +24,19 @@ class Dashboard extends Component {
       if (Object.keys(profile).length > 0) {
         dashboardContent = (
           <div>
-            <p className="lead">{profile.username}</p>
+            <p className="uk-text-lead">{profile.username}</p>
           </div>
         );
       } else {
         // User is logged in but has no profile
         dashboardContent = (
           <div>
-            <p className="lead text-muted">Welcome {user.email}</p>
-            <p>You have not yet setup a profile, please add some info</p>
-            <Link to="/create-profile" className="btn btn-lg btn-info">
-              Create Profile
+            <p className="uk-text-small uk-text-meta">Welcome {user.email}</p>
+            <p>Set up your profile to personalize your account.</p>
+            <Link to="/create-profile">
+              <button className="uk-button uk-button-secondary">
+                Create Profile
+              </button>
             </Link>
           </div>
         );
@@ -40,14 +44,10 @@ class Dashboard extends Component {
     }
 
     return (
-      <div className="dashboard">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <h1 className="display-4">Dashboard</h1>
-              {dashboardContent}
-            </div>
-          </div>
+      <div className="dashboard uk-flex uk-flex-center uk-flex-middle">
+        <div className="uk-container">
+          <p className="uk-text-uppercase uk-text-lead">Dashboard</p>
+          {dashboardContent}
         </div>
       </div>
     );

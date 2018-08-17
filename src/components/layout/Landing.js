@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 
+import '../../css/components/layout/Landing.css';
+
 class Landing extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
@@ -12,26 +14,22 @@ class Landing extends Component {
 
   render() {
     return (
-      <div className="landing">
-        <div className="dark-overlay landing-inner text-light">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12 text-center">
-                <h1 className="display-3 mb-4">Developer Connector</h1>
-                <p className="lead">
-                  {' '}
-                  Create a developer profile/portfolio, share posts and get help
-                  from other developers
-                </p>
-                <hr />
-                <Link to="/register" className="btn btn-lg btn-info mr-2">
+      <div className="landing uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle uk-child-width-1-2@m">
+        <div className="uk-inline">
+          <div className="uk-overlay uk-overlay-default uk-position-center">
+            <h1 className="uk-text-lead">Resumer</h1>
+            <p className="uk-text-small">Keep track of your job applications</p>
+            <hr />
+            <p uk-margin="true">
+              <Link to="/register">
+                <button className="uk-button uk-button-secondary">
                   Sign Up
-                </Link>
-                <Link to="/login" className="btn btn-lg btn-light">
-                  Login
-                </Link>
-              </div>
-            </div>
+                </button>
+              </Link>{' '}
+              <Link to="/login">
+                <button className="uk-button uk-button-secondary">Login</button>
+              </Link>
+            </p>
           </div>
         </div>
       </div>

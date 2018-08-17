@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import '../../css/components/layout/Navbar.css';
+
 import { logoutUser } from '../../actions/authActions';
 import { clearCurrentProfile } from '../../actions/profileActions';
 
@@ -17,60 +20,40 @@ class Navbar extends Component {
     const { isAuthenticated, user } = this.props.auth;
 
     const authLinks = (
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <a
-            href=""
-            onClick={this.onLogoutClick.bind(this)}
-            className="nav-link"
-          >
+      <ul className="uk-navbar-nav">
+        <li className="uk-active">
+          <Link to="" onClick={this.onLogoutClick.bind(this)}>
             Logout
-          </a>
+          </Link>
         </li>
       </ul>
     );
 
     const guestLinks = (
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <Link className="nav-link" to="/register">
-            Sign Up
-          </Link>
+      <ul className="uk-navbar-nav">
+        <li className="uk-active">
+          <Link to="/register">Sign Up</Link>
         </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/login">
-            Login
-          </Link>
+        <li>
+          <Link to="/login">Login</Link>
         </li>
       </ul>
     );
 
     return (
-      <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
-        <div className="container">
-          <Link className="navbar-brand" to="/">
-            DevConnector
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#mobile-nav"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-
-          <div className="collapse navbar-collapse" id="mobile-nav">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/profiles">
-                  {' '}
-                  Developers
-                </Link>
-              </li>
-            </ul>
-            {isAuthenticated ? authLinks : guestLinks}
-          </div>
+      <nav className="navbar uk-navbar-container" uk-navbar="true">
+        <div className="uk-navbar-left">
+          <ul className="uk-navbar-nav">
+            <li className="uk-active">
+              <Link to="/">DevConnector</Link>
+            </li>
+            <li>
+              <Link to="/profiles"> Developers</Link>
+            </li>
+          </ul>
+        </div>
+        <div className="uk-navbar-right">
+          {isAuthenticated ? authLinks : guestLinks}
         </div>
       </nav>
     );

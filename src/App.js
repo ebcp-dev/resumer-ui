@@ -46,10 +46,10 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="App">
+          <div>
             <Navbar />
             <Route exact path="/" component={Landing} />
-            <div className="container">
+            <div>
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Switch>

@@ -70,95 +70,84 @@ class CreateProfile extends Component {
     ];
 
     return (
-      <div className="create-profile">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Create Your Profile</h1>
-              <small className="d-block pb-3">* = required fields</small>
-              <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  placeholder="* Username"
-                  name="username"
-                  value={this.state.username}
-                  onChange={this.onChange}
-                  error={errors.username}
-                  info="A unique username for your profile."
-                />
-                <TextFieldGroup
-                  placeholder="* Name"
-                  name="name"
-                  value={this.state.name}
-                  onChange={this.onChange}
-                  error={errors.name}
-                  info="Enter your name."
-                />
-                <SelectListGroup
-                  placeholder="Status"
-                  name="status"
-                  value={this.state.status}
-                  onChange={this.onChange}
-                  options={options}
-                  error={errors.status}
-                  info="Give us an idea of where you are at in your job search."
-                />
-                <TextFieldGroup
-                  placeholder="Company"
-                  name="currentCompany"
-                  value={this.state.currentCompany}
-                  onChange={this.onChange}
-                  error={errors.currentCompany}
-                  info="Could be your own company or one you currently work for."
-                />
-                <TextFieldGroup
-                  placeholder="Website"
-                  name="website"
-                  value={this.state.website}
-                  onChange={this.onChange}
-                  error={errors.website}
-                  info="Could be your own website or a company one."
-                />
-                <TextFieldGroup
-                  placeholder="Location"
-                  name="location"
-                  value={this.state.location}
-                  onChange={this.onChange}
-                  error={errors.location}
-                  info="City or city & state suggested (eg. Boston, MA)."
-                />
-                <TextFieldGroup
-                  placeholder="* Skills"
-                  name="skills"
-                  value={this.state.skills}
-                  onChange={this.onChange}
-                  error={errors.skills}
-                  info="Please use comma separated values (eg.
+      <div className="create-profile uk-flex uk-flex-center uk-flex-middle">
+        <div className="uk-container">
+          <br />
+          <h1 className="uk-text-lead">Create Your Profile</h1>
+          <p className="uk-text-small">* = required fields</p>
+          <form onSubmit={this.onSubmit}>
+            <TextFieldGroup
+              placeholder="* Username"
+              name="username"
+              value={this.state.username}
+              onChange={this.onChange}
+              error={errors.username}
+            />
+            <TextFieldGroup
+              placeholder="* Name"
+              name="name"
+              value={this.state.name}
+              onChange={this.onChange}
+              error={errors.name}
+            />
+            <SelectListGroup
+              placeholder="Status"
+              name="status"
+              value={this.state.status}
+              onChange={this.onChange}
+              options={options}
+              error={errors.status}
+              info="Give us an idea of where you are in your job search."
+            />
+            <TextFieldGroup
+              placeholder="Company"
+              name="currentCompany"
+              value={this.state.currentCompany}
+              onChange={this.onChange}
+              error={errors.currentCompany}
+            />
+            <TextFieldGroup
+              placeholder="Website"
+              name="website"
+              value={this.state.website}
+              onChange={this.onChange}
+              error={errors.website}
+            />
+            <TextFieldGroup
+              placeholder="Location"
+              name="location"
+              value={this.state.location}
+              onChange={this.onChange}
+              error={errors.location}
+              info="City or city & state suggested (eg. Boston, MA)."
+            />
+            <TextFieldGroup
+              placeholder="* Skills"
+              name="skills"
+              value={this.state.skills}
+              onChange={this.onChange}
+              error={errors.skills}
+              info="Please use comma separated values (eg.
                     HTML,CSS,JavaScript,PHP."
-                />
-                <TextFieldGroup
-                  placeholder="Github"
-                  name="github"
-                  value={this.state.github}
-                  onChange={this.onChange}
-                  error={errors.github}
-                  info="If you want your latest repos and a Github link, include your username."
-                />
-                <TextAreaFieldGroup
-                  placeholder="Short Bio"
-                  name="bio"
-                  value={this.state.bio}
-                  onChange={this.onChange}
-                  error={errors.bio}
-                  info="Tell us a little about yourself."
-                />
-                <input
-                  type="submit"
-                  value="Submit"
-                  className="btn btn-info btn-block mt-4"
-                />
-              </form>
-            </div>
-          </div>
+            />
+            <TextFieldGroup
+              placeholder="Github"
+              name="github"
+              value={this.state.github}
+              onChange={this.onChange}
+              error={errors.github}
+            />
+            <TextAreaFieldGroup
+              placeholder="Short Bio"
+              name="bio"
+              value={this.state.bio}
+              onChange={this.onChange}
+              error={errors.bio}
+              info="Tell us a little about yourself."
+            />
+            <button className="uk-button uk-button-secondary">Submit</button>
+            <hr />
+          </form>
         </div>
       </div>
     );
