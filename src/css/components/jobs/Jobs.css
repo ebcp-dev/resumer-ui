@@ -1,3 +1,20 @@
-.uk-label-offered {
+.label-offered {
   background-color: #a100ff;
+}
+:focus {
+  outline: none;
+}
+.pagination-bottom > .-pagination .-btn {
+  text-transform: uppercase;
+  color: #fff;
+  border-radius: 0;
+  background-color: #222;
+}
+.pagination-bottom
+  > .-pagination
+  > .-center
+  > .select-wrap.-pageSizeOptions
+  > select,
+.pagination-bottom > .-pagination > .-center > .-pageInfo > .-pageJump > input {
+  border-radius: 0;
 }

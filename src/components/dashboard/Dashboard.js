@@ -6,7 +6,6 @@ import { getCurrentProfile } from '../../actions/profileActions';
 
 import '../../css/components/dashboard/Dashboard.css';
 import LoadingComponent from '../common/LoadingComponent';
-import Jobs from '../jobs/Jobs';
 import AddJobs from '../jobs/AddJobs';
 import Profile from './Profile';
 
@@ -42,22 +41,24 @@ class Dashboard extends Component {
         }
 
         dashboardContent = (
-          <div
-            className="uk-grid-collapse uk-child-width-1-3@m uk-flex-center"
-            uk-grid="true"
-          >
-            <Profile
-              username={profile.username}
-              dateJoined={dateJoined}
-              userStatus={userStatus}
-              status={profile.status}
-              email={user.email}
-              website={profile.website}
-              linkedin={profile.linkedin}
-              github={profile.github}
-            />
-            <AddJobs />
-            <Jobs />
+          <div className="uk-grid" uk-grid="true">
+            <div className="uk-width-1-4@s">
+              <Profile
+                username={profile.username}
+                dateJoined={dateJoined}
+                userStatus={userStatus}
+                status={profile.status}
+                email={user.email}
+                website={profile.website}
+                linkedin={profile.linkedin}
+                github={profile.github}
+              />
+            </div>
+            <div className="uk-width-expand@s">
+              <div className="uk-padding">
+                <AddJobs />
+              </div>
+            </div>
           </div>
         );
       } else {
@@ -78,13 +79,7 @@ class Dashboard extends Component {
       }
     }
 
-    return (
-      <div className="dashboard uk-container">
-        <br />
-        {dashboardContent}
-        <br />
-      </div>
-    );
+    return <div className="dashboard">{dashboardContent}</div>;
   }
 }
 

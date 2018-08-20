@@ -28,12 +28,17 @@ export const getJobs = () => dispatch => {
 
 // Add jobs
 export const addJob = jobData => dispatch => {
-  axios.post('/api/job', jobData).catch(err =>
-    dispatch({
-      type: GET_ERRORS,
-      payload: err.response.data
+  axios
+    .post('/api/job', jobData)
+    .then(res => {
+      dispatch(getJobs());
     })
-  );
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
 };
 
 // Jobs loading

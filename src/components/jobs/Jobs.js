@@ -1,82 +1,126 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getJobs } from '../../actions/jobActions';
+import ReactTable from 'react-table';
 
+import 'react-table/react-table.css';
 import '../../css/components/jobs/Jobs.css';
 import LoadingComponent from '../common/LoadingComponent';
 
 class Jobs extends Component {
-  componentDidMount() {
-    this.props.getJobs();
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      jobsList: null,
+      loading: false
+    };
+    this.stringifyDate = this.stringifyDate.bind(this);
+    this.renderEditable = this.renderEditable.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      jobsList: nextProps.jobsList,
+      loading: nextProps.loading
+    });
+  }
+
+  stringifyDate(date) {
+    // convert date to string
+    return new Date(date).toDateString().slice(4, date.length);
+  }
+  // Edit row data
+  renderEditable(cellInfo) {
+    return (
+      <div
+        style={{ backgroundColor: '#fafafa' }}
+        contentEditable
+        suppressContentEditableWarning
+        onBlur={e => {
+          const jobsList = [...this.state.jobsList];
+          jobsList[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
+          this.setState({ jobsList });
+        }}
+        dangerouslySetInnerHTML={{
+          __html: this.state.jobsList[cellInfo.index][cellInfo.column.id]
+        }}
+      />
+    );
   }
 
   render() {
-    const { jobs, loading } = this.props;
-    let jobsArr = [];
+    const { jobsList, loading } = this.state;
     let jobsContent;
 
-    if (jobs === null || loading) {
+    if (jobsList === null || loading) {
       jobsContent = <LoadingComponent />;
     } else {
-      if (jobs.jobsList.length > 0) {
-        let { jobsList } = jobs;
-        let jobStatus;
-        for (let i = 0; i < jobsList.length; i++) {
-          let {
-            role,
-            company,
-            link,
-            location,
-            seniority,
-            salaryRange,
-            status,
-            createdAt,
-            updatedAt
-          } = jobsList[i];
-          let dateAdded = new Date(createdAt).toDateString();
-          let dateUpdated = new Date(updatedAt).toDateString();
-          // Set job status label
-          if (status === 'Saved') {
-            jobStatus = '';
-          }
-          if (status === 'Applied') {
-            jobStatus = 'uk-label-warning';
-          }
-          if (status === 'Interviewing') {
-            jobStatus = 'uk-label-danger';
-          }
-          if (status === 'Offered') {
-            jobStatus = 'uk-label-offered';
-          }
-          if (status === 'Signed Offer') {
-            jobStatus = 'uk-label-success';
-          }
-          jobsArr.push(
-            <li key={i}>
-              <div className="uk-card uk-card-default uk-card-body">
-                <span className={`uk-label ${jobStatus}`}>{status}</span>
-                <br />
-                <a href={link} target="_blank">
-                  {seniority} {role} at {company}, {location} {salaryRange}
-                </a>
-                <br />
-                <a className="uk-link-reset">
-                  Added: {dateAdded.slice(4, dateAdded.length)}
-                </a>
-                <br />
-                <a className="uk-link-reset">
-                  Updated: {dateUpdated.slice(4, dateUpdated.length)}
-                </a>
-              </div>
-            </li>
-          );
-        }
-        jobsContent = <ul className="uk-list">{jobsArr}</ul>;
+      if (jobsList.length > 0) {
+        jobsContent = (
+          <ReactTable
+            data={jobsList}
+            defaultSorted={[
+              {
+                id: 'updated',
+                desc: true
+              }
+            ]}
+            filterable
+            columns={[
+              {
+                Header: 'Role',
+                accessor: 'role',
+                Cell: this.renderEditable
+              },
+              {
+                Header: 'Company',
+                accessor: 'company',
+                Cell: this.renderEditable
+              },
+              {
+                Header: 'City',
+                accessor: 'location',
+                Cell: this.renderEditable
+              },
+              {
+                Header: 'Experience',
+                accessor: 'seniority',
+                Cell: this.renderEditable
+              },
+              {
+                Header: 'Status',
+                accessor: 'status',
+                Cell: this.renderEditable
+              },
+              {
+                Header: 'Salary',
+                accessor: 'salaryRange',
+                Cell: this.renderEditable
+              },
+              {
+                Header: 'Added',
+                accessor: 'createdAt',
+                Cell: row => <div>{this.stringifyDate(row.value)}</div>,
+                filterable: false
+              },
+              {
+                Header: 'Updated',
+                accessor: 'updatedAt',
+                Cell: row => <div>{this.stringifyDate(row.value)}</div>,
+                filterable: false
+              }
+            ]}
+            style={{
+              height: '80vh'
+            }}
+            defaultPageSize={10}
+            className="-striped -highlight"
+          />
+        );
       }
     }
     return (
-      <div className="uk-tile uk-tile-default">
+      <div>
         <p className="uk-text-lead">Jobs Collection</p>
         {jobsContent}
       </div>
@@ -85,19 +129,8 @@ class Jobs extends Component {
 }
 
 Jobs.propTypes = {
-  getJobs: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  jobs: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  jobsList: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-  jobs: state.jobs,
-  errors: state.errors
-});
-
-export default connect(
-  mapStateToProps,
-  { getJobs }
-)(Jobs);
+export default Jobs;

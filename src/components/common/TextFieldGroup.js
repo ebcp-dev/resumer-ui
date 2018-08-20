@@ -14,12 +14,12 @@ const TextFieldGroup = ({
   disabled
 }) => {
   return (
-    <fieldset className="uk-fieldset">
+    <div>
       {info && <p className="uk-text-primary">{info}</p>}
       <div className="uk-margin">
         <input
           type={type}
-          className={classnames('uk-input uk-form-medium', {
+          className={classnames('uk-input', {
             'uk-form-danger': error
           })}
           placeholder={placeholder}
@@ -30,7 +30,7 @@ const TextFieldGroup = ({
         />
       </div>
       {error && <p className="uk-text-danger">{error}</p>}
-    </fieldset>
+    </div>
   );
 };
 

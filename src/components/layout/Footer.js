@@ -11,8 +11,14 @@ export default () => {
           <li className="uk-active">
             <Link to="/">Home</Link>
           </li>
+        </ul>
+      </div>
+      <div className="uk-navbar-right">
+        <ul className="uk-navbar-nav">
           <li>
-            <Link to="/profiles">Profiles</Link>
+            <Link to="#navbar" uk-scroll="true">
+              Scroll Up
+            </Link>
           </li>
         </ul>
       </div>

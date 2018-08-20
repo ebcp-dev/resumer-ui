@@ -13,7 +13,7 @@ export default props => {
     github
   } = props;
   let profileContent = (
-    <div>
+    <div className="uk-padding">
       <h3 className="uk-text-lead">{username}</h3>
       <p className="uk-text-meta">
         Joined: {dateJoined.slice(4, dateJoined.length)}
@@ -26,7 +26,7 @@ export default props => {
           <p>
             <a href={website} target="_blank">
               <button className="uk-button uk-button-default uk-button-small">
-                Website
+                Personal Website
               </button>
             </a>
           </p>
@@ -35,7 +35,7 @@ export default props => {
           <p>
             <a href={linkedin} target="_blank">
               <button className="uk-button uk-button-default uk-button-small">
-                LinkedIn Profile
+                <span uk-icon="linkedin" />
               </button>
             </a>
           </p>
@@ -44,7 +44,7 @@ export default props => {
           <p>
             <a href={github} target="_blank">
               <button className="uk-button uk-button-default uk-button-small">
-                GitHub Profile
+                <span uk-icon="github" />
               </button>
             </a>
           </p>
@@ -64,7 +64,7 @@ export default props => {
         type="button"
         uk-toggle="target: #profile-details"
       >
-        Profile Details
+        Profile
       </button>
       <div id="profile-details" uk-offcanvas="true">
         <div className="uk-offcanvas-bar">
@@ -76,8 +76,10 @@ export default props => {
           {profileContent}
         </div>
       </div>
-      <div className="uk-visible@m">
-        <div className="uk-tile uk-tile-default">{profileContent}</div>
+      <div className="uk-visible@m" uk-sticky="true">
+        <div className="profile uk-dark uk-background-muted">
+          {profileContent}
+        </div>
       </div>
     </div>
   );
