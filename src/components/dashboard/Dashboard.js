@@ -6,6 +6,9 @@ import { getCurrentProfile } from '../../actions/profileActions';
 
 import '../../css/components/dashboard/Dashboard.css';
 import LoadingComponent from '../common/LoadingComponent';
+import Jobs from '../jobs/Jobs';
+import AddJobs from '../jobs/AddJobs';
+import Profile from './Profile';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -15,6 +18,8 @@ class Dashboard extends Component {
   render() {
     const { user } = this.props.auth;
     const { profile, loading } = this.props.profile;
+    let dateJoined = new Date(user.joined).toDateString();
+    let userStatus;
     let dashboardContent;
 
     if (profile === null || loading) {
@@ -22,33 +27,62 @@ class Dashboard extends Component {
     } else {
       // Check if logged in user has profile data
       if (Object.keys(profile).length > 0) {
+        // Set profile status label
+        if (profile.status === 'Not Looking') {
+          userStatus = '';
+        }
+        if (profile.status === 'Actively Looking') {
+          userStatus = 'uk-label-warning';
+        }
+        if (profile.status === 'Interviewing') {
+          userStatus = 'uk-label-danger';
+        }
+        if (profile.status === 'Offered') {
+          userStatus = 'uk-label-success';
+        }
+
         dashboardContent = (
-          <div>
-            <p className="uk-text-lead">{profile.username}</p>
+          <div
+            className="uk-grid-collapse uk-child-width-1-3@m uk-flex-center"
+            uk-grid="true"
+          >
+            <Profile
+              username={profile.username}
+              dateJoined={dateJoined}
+              userStatus={userStatus}
+              status={profile.status}
+              email={user.email}
+              website={profile.website}
+              linkedin={profile.linkedin}
+              github={profile.github}
+            />
+            <AddJobs />
+            <Jobs />
           </div>
         );
       } else {
         // User is logged in but has no profile
         dashboardContent = (
-          <div>
-            <p className="uk-text-small uk-text-meta">Welcome {user.email}</p>
-            <p>Set up your profile to personalize your account.</p>
-            <Link to="/create-profile">
-              <button className="uk-button uk-button-secondary">
-                Create Profile
-              </button>
-            </Link>
+          <div className="uk-flex uk-flex-center uk-flex-middle">
+            <div className="uk-card uk-card-default uk-card-body">
+              <p className="uk-text-small uk-text-meta">Welcome {user.email}</p>
+              <p>Add details to personalize your account.</p>
+              <Link to="/create-profile">
+                <button className="uk-button uk-button-secondary">
+                  Add Details
+                </button>
+              </Link>
+            </div>
           </div>
         );
       }
     }
 
     return (
-      <div className="dashboard uk-flex uk-flex-center uk-flex-middle">
-        <div className="uk-container">
-          <p className="uk-text-uppercase uk-text-lead">Dashboard</p>
-          {dashboardContent}
-        </div>
+      <div className="dashboard uk-container">
+        <br />
+        {dashboardContent}
+        <br />
       </div>
     );
   }

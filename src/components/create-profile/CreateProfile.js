@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import '../../css/components/create-profile/CreateProfile.css';
 import TextFieldGroup from '../common/TextFieldGroup';
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import { createProfile } from '../../actions/profileActions';
 
@@ -13,13 +13,9 @@ class CreateProfile extends Component {
     super(props);
     this.state = {
       username: '',
-      name: '',
       status: '',
-      currentCompany: '',
       website: '',
-      location: '',
-      skills: '',
-      bio: '',
+      linkedin: '',
       github: '',
       errors: {}
     };
@@ -37,17 +33,11 @@ class CreateProfile extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    let skillsList =
-      this.state.skills.length > 0 ? this.state.skills.split(',') : [];
     const profileData = {
       username: this.state.username,
-      name: this.state.name,
       status: this.state.status,
-      currentCompany: this.state.currentCompany,
       website: this.state.website,
-      location: this.state.location,
-      skills: skillsList,
-      bio: this.state.bio,
+      linkedin: this.state.linkedin,
       github: this.state.github
     };
     this.props.createProfile(profileData, this.props.history);
@@ -62,11 +52,11 @@ class CreateProfile extends Component {
 
     // Select options for status
     const options = [
-      { label: '* Current Status', value: 0 },
+      { label: 'Current Status', value: 0 },
       { label: 'Actively Looking', value: 'Actively Looking' },
-      { label: 'Passively Looking', value: 'Passively Looking' },
+      { label: 'Not Looking', value: 'Not Looking' },
       { label: 'Interviewing', value: 'Interviewing' },
-      { label: 'Signed Offer', value: 'Signed Offer' }
+      { label: 'Offered', value: 'Offered' }
     ];
 
     return (
@@ -74,7 +64,7 @@ class CreateProfile extends Component {
         <div className="uk-container">
           <br />
           <h1 className="uk-text-lead">Create Your Profile</h1>
-          <p className="uk-text-small">* = required fields</p>
+          {errors.profile && <p className="uk-text-danger">{errors.profile}</p>}
           <form onSubmit={this.onSubmit}>
             <TextFieldGroup
               placeholder="* Username"
@@ -83,13 +73,6 @@ class CreateProfile extends Component {
               onChange={this.onChange}
               error={errors.username}
             />
-            <TextFieldGroup
-              placeholder="* Name"
-              name="name"
-              value={this.state.name}
-              onChange={this.onChange}
-              error={errors.name}
-            />
             <SelectListGroup
               placeholder="Status"
               name="status"
@@ -97,14 +80,6 @@ class CreateProfile extends Component {
               onChange={this.onChange}
               options={options}
               error={errors.status}
-              info="Give us an idea of where you are in your job search."
-            />
-            <TextFieldGroup
-              placeholder="Company"
-              name="currentCompany"
-              value={this.state.currentCompany}
-              onChange={this.onChange}
-              error={errors.currentCompany}
             />
             <TextFieldGroup
               placeholder="Website"
@@ -114,21 +89,11 @@ class CreateProfile extends Component {
               error={errors.website}
             />
             <TextFieldGroup
-              placeholder="Location"
-              name="location"
-              value={this.state.location}
+              placeholder="LinkedIn"
+              name="linkedin"
+              value={this.state.linkedin}
               onChange={this.onChange}
-              error={errors.location}
-              info="City or city & state suggested (eg. Boston, MA)."
-            />
-            <TextFieldGroup
-              placeholder="* Skills"
-              name="skills"
-              value={this.state.skills}
-              onChange={this.onChange}
-              error={errors.skills}
-              info="Please use comma separated values (eg.
-                    HTML,CSS,JavaScript,PHP."
+              error={errors.linkedin}
             />
             <TextFieldGroup
               placeholder="Github"
@@ -136,14 +101,6 @@ class CreateProfile extends Component {
               value={this.state.github}
               onChange={this.onChange}
               error={errors.github}
-            />
-            <TextAreaFieldGroup
-              placeholder="Short Bio"
-              name="bio"
-              value={this.state.bio}
-              onChange={this.onChange}
-              error={errors.bio}
-              info="Tell us a little about yourself."
             />
             <button className="uk-button uk-button-secondary">Submit</button>
             <hr />

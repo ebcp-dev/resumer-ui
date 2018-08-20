@@ -1,4 +1,8 @@
 .navbar {
-  height: 10vh;
-  width: 100vw;
+  height: 10%;
+}
+@media (max-width: 375px) {
+  nav.navbar > div > ul > li > a {
+    font-size: 60%;
+  }
 }

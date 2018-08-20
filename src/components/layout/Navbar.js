@@ -22,7 +22,11 @@ class Navbar extends Component {
     const authLinks = (
       <ul className="uk-navbar-nav">
         <li className="uk-active">
-          <Link to="" onClick={this.onLogoutClick.bind(this)}>
+          <Link
+            className="nav-link"
+            to=""
+            onClick={this.onLogoutClick.bind(this)}
+          >
             Logout
           </Link>
         </li>
@@ -32,10 +36,14 @@ class Navbar extends Component {
     const guestLinks = (
       <ul className="uk-navbar-nav">
         <li className="uk-active">
-          <Link to="/register">Sign Up</Link>
+          <Link className="nav-link" to="/register">
+            Sign Up
+          </Link>
         </li>
         <li>
-          <Link to="/login">Login</Link>
+          <Link className="nav-link" to="/login">
+            Login
+          </Link>
         </li>
       </ul>
     );
@@ -45,10 +53,20 @@ class Navbar extends Component {
         <div className="uk-navbar-left">
           <ul className="uk-navbar-nav">
             <li className="uk-active">
-              <Link to="/">DevConnector</Link>
+              {isAuthenticated ? (
+                <Link className="nav-link" to="/">
+                  Dashboard
+                </Link>
+              ) : (
+                <Link className="nav-link" to="/">
+                  DevConnector
+                </Link>
+              )}
             </li>
             <li>
-              <Link to="/profiles"> Developers</Link>
+              <Link className="nav-link" to="/profiles">
+                Developers
+              </Link>
             </li>
           </ul>
         </div>

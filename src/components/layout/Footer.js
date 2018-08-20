@@ -9,17 +9,10 @@ export default () => {
       <div className="uk-navbar-left">
         <ul className="uk-navbar-nav">
           <li className="uk-active">
-            <Link to="">Left</Link>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="">Footer</Link>
-          </li>
-        </ul>
-      </div>
-      <div className="uk-navbar-right">
-        <ul className="uk-navbar-nav">
-          <li className="uk-active">
-            <Link to="">Right Footer</Link>
+            <Link to="/profiles">Profiles</Link>
           </li>
         </ul>
       </div>
