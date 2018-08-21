@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../css/components/dashboard/Profile.css';
+import '../../css/components/profile/Profile.css';
 
 export default props => {
   let {
@@ -54,6 +54,7 @@ export default props => {
           {email}
         </a>
       </div>
+      <hr />
     </div>
   );
 
@@ -77,7 +78,7 @@ export default props => {
         </div>
       </div>
       <div className="uk-visible@m" uk-sticky="true">
-        <div className="profile uk-dark uk-background-muted">
+        <div className="profile uk-dark uk-background-default">
           {profileContent}
         </div>
       </div>

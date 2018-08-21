@@ -7,7 +7,7 @@ import { getCurrentProfile } from '../../actions/profileActions';
 import '../../css/components/dashboard/Dashboard.css';
 import LoadingComponent from '../common/LoadingComponent';
 import AddJobs from '../jobs/AddJobs';
-import Profile from './Profile';
+import Profile from '../profile/Profile';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -41,7 +41,7 @@ class Dashboard extends Component {
         }
 
         dashboardContent = (
-          <div className="uk-grid" uk-grid="true">
+          <div className="uk-grid-match" uk-grid="true">
             <div className="uk-width-1-4@s">
               <Profile
                 username={profile.username}
@@ -53,6 +53,14 @@ class Dashboard extends Component {
                 linkedin={profile.linkedin}
                 github={profile.github}
               />
+              <ul className="uk-list uk-nav uk-nav-default">
+                <li className="uk-active">
+                  <a href="">Edit Profile</a>
+                </li>
+                <li className="uk-active">
+                  <a href="">Jobs</a>
+                </li>
+              </ul>
             </div>
             <div className="uk-width-expand@s">
               <div className="uk-padding">

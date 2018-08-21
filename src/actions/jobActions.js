@@ -41,6 +41,21 @@ export const addJob = jobData => dispatch => {
     );
 };
 
+// Edit jobs
+export const editJob = jobData => dispatch => {
+  axios
+    .put('/api/job', jobData)
+    .then(res => {
+      dispatch(getJobs());
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
 // Jobs loading
 export const setJobsLoading = () => {
   return {

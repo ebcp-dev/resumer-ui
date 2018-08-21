@@ -1,6 +1,9 @@
 .label-offered {
   background-color: #a100ff;
 }
+.label-interviewing {
+  background-color: #cb0091;
+}
 :focus {
   outline: none;
 }
