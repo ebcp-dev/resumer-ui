@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
 
-import '../../css/components/auth/Login.css';
+import '../../css/components/Auth.css';
 import TextFieldGroup from '../common/TextFieldGroup';
 
 class Login extends Component {

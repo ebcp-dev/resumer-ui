@@ -41,6 +41,21 @@ export const addJob = jobData => dispatch => {
     );
 };
 
+// Delete jobs
+export const deleteJobs = jobsToDelete => dispatch => {
+  axios
+    .delete('/api/job', jobsToDelete)
+    .then(res => {
+      dispatch(getJobs());
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
 // Edit jobs
 export const editJob = jobData => dispatch => {
   axios

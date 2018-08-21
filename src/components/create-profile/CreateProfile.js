@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import '../../css/components/create-profile/CreateProfile.css';
+import '../../css/components/CreateProfile.css';
 import TextFieldGroup from '../common/TextFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import { createProfile } from '../../actions/profileActions';

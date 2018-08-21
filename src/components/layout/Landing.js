@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 
-import '../../css/components/layout/Landing.css';
+import '../../css/components/Layout.css';
 
 class Landing extends Component {
   componentDidMount() {

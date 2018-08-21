@@ -1,5 +1,6 @@
 import React from 'react';
-import '../../css/components/profile/Profile.css';
+
+import '../../css/components/Profile.css';
 
 export default props => {
   let {
@@ -13,14 +14,15 @@ export default props => {
     github
   } = props;
   let profileContent = (
-    <div className="uk-padding">
-      <h3 className="uk-text-lead">{username}</h3>
-      <p className="uk-text-meta">
-        Joined: {dateJoined.slice(4, dateJoined.length)}
-      </p>
-      <span className={`uk-label ${userStatus}`}>{status}</span>
-      <hr />
-      <div>
+    <div>
+      <div className="uk-card-header">
+        <h3 className="uk-card-title">{username}</h3>
+        <p className="uk-text-meta">
+          Joined: {dateJoined.slice(4, dateJoined.length)}
+        </p>
+        <span className={`uk-label ${userStatus}`}>{status}</span>
+      </div>
+      <div className="uk-card-body">
         {(website || linkedin || github) && <p>Links:</p>}
         {website && (
           <p>
@@ -54,19 +56,11 @@ export default props => {
           {email}
         </a>
       </div>
-      <hr />
     </div>
   );
 
   return (
     <div className="uk-offcanvas-content">
-      <button
-        className="uk-button uk-button-default uk-hidden@m"
-        type="button"
-        uk-toggle="target: #profile-details"
-      >
-        Profile
-      </button>
       <div id="profile-details" uk-offcanvas="true">
         <div className="uk-offcanvas-bar">
           <button
@@ -77,10 +71,8 @@ export default props => {
           {profileContent}
         </div>
       </div>
-      <div className="uk-visible@m" uk-sticky="true">
-        <div className="profile uk-dark uk-background-default">
-          {profileContent}
-        </div>
+      <div className="uk-visible@m">
+        <div className="profile">{profileContent}</div>
       </div>
     </div>
   );

@@ -1,260 +1,209 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactTable from 'react-table';
 import { connect } from 'react-redux';
-import 'react-table/react-table.css';
+import { AgGridReact } from 'ag-grid-react';
 
-import '../../css/components/jobs/Jobs.css';
-import { editJob } from '../../actions/jobActions';
+import 'ag-grid/dist/styles/ag-grid.css';
+import 'ag-grid/dist/styles/ag-theme-balham.css';
+import '../../css/components/Jobs.css';
+import { editJob, getJobs, deleteJobs } from '../../actions/jobActions';
 import LoadingComponent from '../common/LoadingComponent';
-import SelectListGroup from '../common/SelectListGroup';
-import TextFieldGroup from '../common/TextFieldGroup';
 
-class Jobs extends Component {
+class AGGrid extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       jobsList: null,
-      loading: false,
-      errors: {}
+      errors: {},
+      onGridReady: params => {
+        params.api.sizeColumnsToFit();
+      }
     };
-    this.stringifyDate = this.stringifyDate.bind(this);
-    this.renderEditable = this.renderEditable.bind(this);
-    this.renderSelectable = this.renderSelectable.bind(this);
-    this.tableButtons = this.tableButtons.bind(this);
+    this.onGridReady = this.onGridReady.bind(this);
+    this.onRowEditingStopped = this.onRowEditingStopped.bind(this);
+    this.checkboxSelection = this.checkboxSelection.bind(this);
   }
 
+  componentDidMount() {
+    this.props.getJobs();
+  }
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      jobsList: nextProps.jobsList,
-      loading: nextProps.loading,
-      errors: nextProps.errors
-    });
+    this.setState({ errors: nextProps.errors });
   }
 
-  stringifyDate(date) {
-    // convert date to string
-    return new Date(date).toDateString().slice(4, date.length);
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = this.columnApi;
+    params.api.sizeColumnsToFit();
   }
 
-  // Edit row data text
-  renderEditable(cellInfo) {
-    const jobsList = [...this.state.jobsList];
-    return (
-      <TextFieldGroup
-        name={cellInfo.column.id}
-        value={jobsList[cellInfo.index][cellInfo.column.id]}
-        type="text"
-        onChange={e => {
-          jobsList[cellInfo.index][cellInfo.column.id] = e.target.value;
-          this.setState({ jobsList });
-        }}
-        errors={this.state.errors}
-      />
-    );
+  onRowEditingStopped(row) {
+    // console.log(row.data);
+    this.props.editJob(row.data);
   }
 
-  // Edit row data with select input
-  renderSelectable(cellInfo) {
-    const jobsList = [...this.state.jobsList];
-    // Select options for salary range
-    const salaryOptions = [
-      { label: 'Salary Range', value: 0 },
-      { label: '0-50k', value: '0-50k' },
-      { label: '50-100k', value: '50-100k' },
-      { label: '100-150k', value: '100-150k' },
-      { label: '150-200k', value: '150-200k' },
-      { label: '200-250k', value: '200-250k' },
-      { label: '250-300k', value: '250-300k' },
-      { label: '300k-above', value: '300k-above' }
-    ];
-    // Select options for seniority
-    const seniorityOptions = [
-      { label: 'Unspecified Experience Level', value: 0 },
-      { label: 'Junior', value: 'Junior' },
-      { label: 'Mid Level', value: 'Mid Level' },
-      { label: 'Senior', value: 'Senior' }
-    ];
-    // Select options for status
-    const statusOptions = [
-      { label: 'Saved', value: 'Saved' },
-      { label: 'Applied', value: 'Applied' },
-      { label: 'Interviewing', value: 'Interviewing' },
-      { label: 'Rejected', value: 'Rejected' },
-      { label: 'Offered', value: 'Offered' },
-      { label: 'Accepted', value: 'Accepted' }
-    ];
-    let selectOptions;
-    switch (cellInfo.column.id) {
-      case 'seniority':
-        selectOptions = seniorityOptions;
-        break;
-      case 'status':
-        selectOptions = statusOptions;
-        break;
-      case 'salaryRange':
-        selectOptions = salaryOptions;
-        break;
-      default:
-        selectOptions = [{ label: 'No value', value: 0 }];
-        break;
-    }
-    return (
-      <SelectListGroup
-        name={cellInfo.column.id}
-        value={jobsList[cellInfo.index][cellInfo.column.id]}
-        options={selectOptions}
-        onChange={e => {
-          jobsList[cellInfo.index][cellInfo.column.id] = e.target.value;
-          this.setState({ jobsList });
-        }}
-      />
-    );
-  }
-
-  // Visit job link and edit job action
-  tableButtons(cellInfo) {
-    const jobsList = [...this.state.jobsList];
-    let row = jobsList[cellInfo.index];
-    let jobStatus;
-    switch (row.status) {
-      case 'Saved':
-        jobStatus = '';
-        break;
-      case 'Applied':
-        jobStatus = 'uk-label-warning';
-        break;
-      case 'Interviewing':
-        jobStatus = 'label-interviewing';
-        break;
-      case 'Rejected':
-        jobStatus = 'uk-label-danger';
-        break;
-      case 'Offered':
-        jobStatus = 'label-offered';
-        break;
-      case 'Accepted':
-        jobStatus = 'uk-label-success';
-        break;
-
-      default:
-        break;
-    }
-    return (
-      <div className="uk-grid-small" uk-grid="true">
-        <a target="_blank">
-          <span className="uk-label uk-label-primary">Visit</span>
-        </a>
-        <a
-          onClick={e => {
-            this.props.editJob(row);
-          }}
-        >
-          <span className="uk-label uk-label-success">Save</span>
-        </a>
-        <a target="_blank">
-          <span className={`uk-label ${jobStatus}`}>{row.status}</span>
-        </a>
-      </div>
-    );
+  checkboxSelection(params) {
+    console.log(params);
   }
 
   render() {
-    const { jobsList, loading } = this.state;
-    let jobsContent;
+    const { jobsList, loading } = this.props.jobs;
+    let tableContent;
 
     if (jobsList === null || loading) {
-      jobsContent = <LoadingComponent />;
+      tableContent = <LoadingComponent />;
     } else {
-      if (jobsList.length > 0) {
-        jobsContent = (
-          <ReactTable
-            data={jobsList}
-            defaultSorted={[
+      tableContent = (
+        <div className="ag-grid-table ag-theme-balham uk-padding">
+          <p className="uk-text-lead">Jobs</p>
+          <AgGridReact
+            enableFilter={true}
+            enableSorting={true}
+            enableColResize={true}
+            singleClickEdit={true}
+            stopEditingWhenGridLosesFocus={true}
+            pagination={true}
+            paginationPageSize={20}
+            editType="fullRow"
+            rowSelection="multiple"
+            rowData={jobsList}
+            onGridReady={this.onGridReady}
+            onRowEditingStopped={this.onRowEditingStopped}
+            columnDefs={[
               {
-                id: 'updated',
-                desc: true
+                headerName: 'Link',
+                field: 'link',
+                maxWidth: 100,
+                headerCheckboxSelection: true,
+                headerCheckboxSelectionFilteredOnly: true,
+                checkboxSelection: true,
+                editable: true,
+                cellRenderer: params => {
+                  return `<a href=${params.data.link}><span>Link</span></a>`;
+                }
+              },
+              {
+                headerName: 'Status',
+                field: 'status',
+                maxWidth: 120,
+                editable: true,
+                cellEditor: 'agSelectCellEditor',
+                cellEditorParams: {
+                  values: [
+                    'Saved',
+                    'Applied',
+                    'Interviewing',
+                    'Rejected',
+                    'Offered',
+                    'Accepted'
+                  ]
+                },
+                cellClassRules: {
+                  'label-saved': params => {
+                    return params.data.status === 'Saved';
+                  },
+                  'uk-label-warning': params => {
+                    return params.data.status === 'Applied';
+                  },
+                  'label-interviewing': params => {
+                    return params.data.status === 'Interviewing';
+                  },
+                  'uk-label-danger': params => {
+                    return params.data.status === 'Rejected';
+                  },
+                  'label-offered': params => {
+                    return params.data.status === 'Offered';
+                  },
+                  'uk-label-success': params => {
+                    return params.data.status === 'Accepted';
+                  }
+                },
+                cellRenderer: params => {
+                  return '<span>' + params.data.status + '</span>';
+                }
+              },
+              {
+                headerName: 'Role',
+                field: 'role',
+                editable: true
+              },
+              {
+                headerName: 'Company',
+                field: 'company',
+                maxWidth: 150,
+                editable: true
+              },
+              {
+                headerName: 'City',
+                field: 'location',
+                maxWidth: 200,
+                editable: true
+              },
+              {
+                headerName: 'Experience',
+                field: 'seniority',
+                maxWidth: 120,
+                editable: true,
+                cellEditor: 'agSelectCellEditor',
+                cellEditorParams: {
+                  values: ['Junior', 'Mid Level', 'Senior']
+                }
+              },
+              {
+                headerName: 'Salary',
+                field: 'salaryRange',
+                maxWidth: 120,
+                editable: true,
+                cellEditor: 'agSelectCellEditor',
+                cellEditorParams: {
+                  values: [
+                    '0-50k',
+                    '50-100k',
+                    '100-150k',
+                    '150-200k',
+                    '250-300k',
+                    '300k-above'
+                  ]
+                }
+              },
+              {
+                headerName: 'Added',
+                field: 'createdAt',
+                maxWidth: 120,
+                cellRenderer: params => {
+                  let parseDate = new Date(params.data.createdAt)
+                    .toDateString()
+                    .slice(4, params.data.createdAt.length);
+                  return '<p>' + parseDate + '</p';
+                }
+              },
+              {
+                headerName: 'Updated',
+                field: 'updatedAt',
+                sort: 'desc',
+                maxWidth: 120,
+                cellRenderer: params => {
+                  let parseDate = new Date(params.data.updatedAt)
+                    .toDateString()
+                    .slice(4, params.data.createdAt.length);
+                  return '<p>' + parseDate + '</p';
+                }
               }
             ]}
-            filterable
-            columns={[
-              {
-                Header: 'Job',
-                accessor: 'link',
-                Cell: this.tableButtons,
-                filterable: false
-              },
-              {
-                Header: 'Link',
-                accessor: 'link',
-                Cell: this.renderEditable
-              },
-              {
-                Header: 'Role',
-                accessor: 'role',
-                Cell: this.renderEditable
-              },
-              {
-                Header: 'Company',
-                accessor: 'company',
-                Cell: this.renderEditable
-              },
-              {
-                Header: 'City',
-                accessor: 'location',
-                Cell: this.renderEditable
-              },
-              {
-                Header: 'Experience',
-                accessor: 'seniority',
-                Cell: this.renderSelectable
-              },
-              {
-                Header: 'Status',
-                accessor: 'status',
-                Cell: this.renderSelectable
-              },
-              {
-                Header: 'Salary',
-                accessor: 'salaryRange',
-                Cell: this.renderSelectable
-              },
-              {
-                Header: 'Added',
-                accessor: 'createdAt',
-                Cell: row => <div>{this.stringifyDate(row.value)}</div>,
-                filterable: false
-              },
-              {
-                Header: 'Updated',
-                accessor: 'updatedAt',
-                Cell: row => <div>{this.stringifyDate(row.value)}</div>,
-                filterable: false
-              }
-            ]}
-            style={{
-              height: '80vh'
-            }}
-            defaultPageSize={20}
-            className="-striped -highlight"
           />
-        );
-      }
+        </div>
+      );
     }
-    return (
-      <div>
-        <p className="uk-text-lead">Jobs Collection</p>
-        {jobsContent}
-      </div>
-    );
+    return <div>{tableContent}</div>;
   }
 }
 
-Jobs.propTypes = {
+AGGrid.propTypes = {
+  getJobs: PropTypes.func.isRequired,
   editJob: PropTypes.func.isRequired,
-  jobsList: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
+  deleteJobs: PropTypes.func.isRequired,
+  jobs: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 
@@ -265,5 +214,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { editJob }
-)(Jobs);
+  { editJob, getJobs, deleteJobs }
+)(AGGrid);

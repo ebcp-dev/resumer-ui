@@ -6,3 +6,10 @@
     font-size: 60%;
   }
 }
+.landing {
+  background: url(../../assets/img/showcase.jpg);
+  background-size: cover;
+}
+.footer {
+  height: 10%;
+}
