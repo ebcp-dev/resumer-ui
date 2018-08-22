@@ -1,5 +1,9 @@
+.jobs {
+  height: 70vh;
+  margin-bottom: 200px;
+}
 .ag-grid-table {
-  height: 50vh;
+  height: 100%;
 }
 .label-saved {
   background-color: #00a2ff;

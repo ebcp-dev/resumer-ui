@@ -32,21 +32,10 @@ export const addJob = jobData => dispatch => {
     .post('/api/job', jobData)
     .then(res => {
       dispatch(getJobs());
-    })
-    .catch(err =>
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
-};
-
-// Delete jobs
-export const deleteJobs = jobsToDelete => dispatch => {
-  axios
-    .delete('/api/job', jobsToDelete)
-    .then(res => {
-      dispatch(getJobs());
+        payload: {}
+      });
     })
     .catch(err =>
       dispatch({
@@ -58,17 +47,22 @@ export const deleteJobs = jobsToDelete => dispatch => {
 
 // Edit jobs
 export const editJob = jobData => dispatch => {
-  axios
-    .put('/api/job', jobData)
-    .then(res => {
-      dispatch(getJobs());
+  axios.put('/api/job', jobData).catch(err =>
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
     })
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+  );
+};
+
+// Delete jobs
+export const deleteJobs = jobsToDelete => dispatch => {
+  axios.delete('/api/job', { data: { links: jobsToDelete } }).catch(err => {
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    });
+  });
 };
 
 // Jobs loading

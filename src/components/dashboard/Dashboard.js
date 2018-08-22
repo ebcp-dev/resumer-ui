@@ -56,16 +56,14 @@ class Dashboard extends Component {
                   github={profile.github}
                 />
                 <div className="uk-card-footer">
-                  <ul
-                    className="uk-nav uk-nav-default uk-tab-left"
-                    uk-nav="true"
-                  >
+                  <ul className="uk-nav uk-nav-default" uk-nav="true">
                     <li className="uk-hidden@m">
                       <Link to="#" uk-toggle="target: #profile-details">
                         Profile
+                        <span uk-icon="triangle-right" />
                       </Link>
                     </li>
-                    <li className="uk-active">
+                    <li>
                       <Link to={`${this.props.match.url}`}>Jobs</Link>
                     </li>
                     <li>

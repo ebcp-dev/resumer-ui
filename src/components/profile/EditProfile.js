@@ -7,6 +7,8 @@ class EditProfile extends Component {
     return (
       <div>
         <p className="uk-text-lead">Edit Profile</p>
+        <h1>Under Construction</h1>
+        <h3>Thank you for you patience.</h3>
       </div>
     );
   }

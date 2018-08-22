@@ -23,8 +23,6 @@ A UI for the Resumer API created with React, Redux.
 
 ## TODO:
 
-- ui function for deleting jobs
-- allow for editing multiple jobs
 - ui for editing profile details
-- implement third-party api for city names
-- add Chart.js for visualizing statistics
+- visualize statistics based on user data
+- add content informational content

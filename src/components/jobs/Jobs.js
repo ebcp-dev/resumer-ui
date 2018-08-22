@@ -9,12 +9,12 @@ import '../../css/components/Jobs.css';
 import { editJob, getJobs, deleteJobs } from '../../actions/jobActions';
 import LoadingComponent from '../common/LoadingComponent';
 
-class AGGrid extends Component {
+class Jobs extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      jobsList: null,
+      selectedRows: [],
       errors: {},
       onGridReady: params => {
         params.api.sizeColumnsToFit();
@@ -22,7 +22,8 @@ class AGGrid extends Component {
     };
     this.onGridReady = this.onGridReady.bind(this);
     this.onRowEditingStopped = this.onRowEditingStopped.bind(this);
-    this.checkboxSelection = this.checkboxSelection.bind(this);
+    this.onSelectionChanged = this.onSelectionChanged.bind(this);
+    this.onDeleteSelected = this.onDeleteSelected.bind(this);
   }
 
   componentDidMount() {
@@ -39,12 +40,23 @@ class AGGrid extends Component {
   }
 
   onRowEditingStopped(row) {
-    // console.log(row.data);
     this.props.editJob(row.data);
   }
 
-  checkboxSelection(params) {
-    console.log(params);
+  onSelectionChanged() {
+    this.setState({ selectedRows: this.gridApi.getSelectedRows() });
+  }
+
+  onDeleteSelected(e) {
+    e.preventDefault();
+    // Send array of links to delete
+    let linksArr = [];
+    this.state.selectedRows.map(row => {
+      return linksArr.push(row.link);
+    });
+    this.props.deleteJobs(linksArr);
+    // Remove rows from grid
+    this.gridApi.updateRowData({ remove: this.state.selectedRows });
   }
 
   render() {
@@ -55,37 +67,41 @@ class AGGrid extends Component {
       tableContent = <LoadingComponent />;
     } else {
       tableContent = (
-        <div className="ag-grid-table ag-theme-balham uk-padding">
-          <p className="uk-text-lead">Jobs</p>
+        <div className="ag-grid-table ag-theme-balham">
+          <p className="uk-text-lead">Jobs ({jobsList.length})</p>
+          <a onClick={this.onDeleteSelected}>
+            <span className="uk-label uk-label-danger">Delete Selected</span>
+          </a>
+          <p className="uk-text-meta">
+            Double click on a row to edit • Click on column header to
+            sort/filter • Drag column header to rearrange columns
+          </p>
           <AgGridReact
             enableFilter={true}
             enableSorting={true}
             enableColResize={true}
-            singleClickEdit={true}
             stopEditingWhenGridLosesFocus={true}
             pagination={true}
             paginationPageSize={20}
             editType="fullRow"
-            rowSelection="multiple"
+            onSelectionChanged={this.onSelectionChanged}
             rowData={jobsList}
             onGridReady={this.onGridReady}
             onRowEditingStopped={this.onRowEditingStopped}
             columnDefs={[
               {
-                headerName: 'Link',
-                field: 'link',
-                maxWidth: 100,
+                headerName: 'Position',
+                field: 'role',
+                minWidth: 250,
+                editable: true,
                 headerCheckboxSelection: true,
                 headerCheckboxSelectionFilteredOnly: true,
-                checkboxSelection: true,
-                editable: true,
-                cellRenderer: params => {
-                  return `<a href=${params.data.link}><span>Link</span></a>`;
-                }
+                checkboxSelection: true
               },
               {
                 headerName: 'Status',
                 field: 'status',
+                minWidth: 80,
                 maxWidth: 120,
                 editable: true,
                 cellEditor: 'agSelectCellEditor',
@@ -120,44 +136,44 @@ class AGGrid extends Component {
                   }
                 },
                 cellRenderer: params => {
-                  return '<span>' + params.data.status + '</span>';
+                  return `<span>${params.data.status}</span>`;
                 }
-              },
-              {
-                headerName: 'Role',
-                field: 'role',
-                editable: true
               },
               {
                 headerName: 'Company',
                 field: 'company',
-                maxWidth: 150,
+                minWidth: 80,
+                maxWidth: 130,
                 editable: true
               },
               {
-                headerName: 'City',
+                headerName: 'Location',
                 field: 'location',
+                minWidth: 100,
                 maxWidth: 200,
                 editable: true
               },
               {
                 headerName: 'Experience',
                 field: 'seniority',
-                maxWidth: 120,
+                minWidth: 70,
+                maxWidth: 100,
                 editable: true,
                 cellEditor: 'agSelectCellEditor',
                 cellEditorParams: {
-                  values: ['Junior', 'Mid Level', 'Senior']
+                  values: ['Unspecified', 'Junior', 'Mid Level', 'Senior']
                 }
               },
               {
                 headerName: 'Salary',
                 field: 'salaryRange',
+                minWidth: 80,
                 maxWidth: 120,
                 editable: true,
                 cellEditor: 'agSelectCellEditor',
                 cellEditorParams: {
                   values: [
+                    'Unspecified',
                     '0-50k',
                     '50-100k',
                     '100-150k',
@@ -168,26 +184,34 @@ class AGGrid extends Component {
                 }
               },
               {
+                headerName: 'Link',
+                field: 'link',
+                minWidth: 100,
+                maxWidth: 350,
+                editable: true,
+                cellRenderer: params => {
+                  return `<a href=${params.data.link}><span>${
+                    params.data.link
+                  }</span></a>`;
+                }
+              },
+              {
                 headerName: 'Added',
                 field: 'createdAt',
-                maxWidth: 120,
+                minWidth: 80,
+                maxWidth: 100,
                 cellRenderer: params => {
-                  let parseDate = new Date(params.data.createdAt)
-                    .toDateString()
-                    .slice(4, params.data.createdAt.length);
-                  return '<p>' + parseDate + '</p';
+                  return `<p>${params.data.createdAt.slice(0, 10)}</p>`;
                 }
               },
               {
                 headerName: 'Updated',
                 field: 'updatedAt',
                 sort: 'desc',
+                minWidth: 80,
                 maxWidth: 120,
                 cellRenderer: params => {
-                  let parseDate = new Date(params.data.updatedAt)
-                    .toDateString()
-                    .slice(4, params.data.createdAt.length);
-                  return '<p>' + parseDate + '</p';
+                  return `<p>${params.data.updatedAt.slice(0, 10)}</p>`;
                 }
               }
             ]}
@@ -195,11 +219,11 @@ class AGGrid extends Component {
         </div>
       );
     }
-    return <div>{tableContent}</div>;
+    return <div className="jobs">{tableContent}</div>;
   }
 }
 
-AGGrid.propTypes = {
+Jobs.propTypes = {
   getJobs: PropTypes.func.isRequired,
   editJob: PropTypes.func.isRequired,
   deleteJobs: PropTypes.func.isRequired,
@@ -215,4 +239,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { editJob, getJobs, deleteJobs }
-)(AGGrid);
+)(Jobs);

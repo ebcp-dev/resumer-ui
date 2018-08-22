@@ -92,7 +92,7 @@ class AddJobs extends Component {
         <br />
         <div className="uk-card uk-card-default uk-card-body">
           <form
-            className="uk-grid-small"
+            className="uk-grid-small uk-padding"
             onSubmit={this.onSubmit}
             uk-grid="true"
           >
@@ -153,7 +153,7 @@ class AddJobs extends Component {
             </button>
             <button
               onClick={this.clearForm}
-              className="uk-button uk-button-secondary uk-width-1-4@s"
+              className="uk-button uk-button-danger uk-width-1-4@s"
             >
               Clear
             </button>
