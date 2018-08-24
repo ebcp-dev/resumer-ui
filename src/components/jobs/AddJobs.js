@@ -6,9 +6,8 @@ import '../../css/components/Jobs.css';
 import { addJob } from '../../actions/jobActions';
 import TextFieldGroup from '../common/TextFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';
-import Jobs from './Jobs';
 
-class AddJobs extends Component {
+class AddJobsForm extends Component {
   constructor(props) {
     super(props);
 
@@ -45,7 +44,8 @@ class AddJobs extends Component {
       link: '',
       location: '',
       seniority: '',
-      salaryRange: ''
+      salaryRange: '',
+      errors: {}
     });
   }
 
@@ -65,11 +65,9 @@ class AddJobs extends Component {
   }
 
   render() {
-    const { errors } = this.state;
-
     // Select options for seniority
     const seniorityOptions = [
-      { label: 'Unspecified Experience Level', value: 0 },
+      { label: 'Unspecified Experience Level', value: 'Unspecified' },
       { label: 'Junior', value: 'Junior' },
       { label: 'Mid Level', value: 'Mid Level' },
       { label: 'Senior', value: 'Senior' }
@@ -77,7 +75,7 @@ class AddJobs extends Component {
 
     // Select options for salary range
     const salaryOptions = [
-      { label: 'Salary Range', value: 0 },
+      { label: 'Unspecified Salary', value: 'Unspecified' },
       { label: '0-50k', value: '0-50k' },
       { label: '50-100k', value: '50-100k' },
       { label: '100-150k', value: '100-150k' },
@@ -89,100 +87,85 @@ class AddJobs extends Component {
 
     return (
       <div className="addJobs">
-        <br />
-        <div className="uk-card uk-card-default uk-card-body">
-          <form
-            className="uk-grid-small uk-padding"
-            onSubmit={this.onSubmit}
-            uk-grid="true"
+        <form className="uk-grid-small" onSubmit={this.onSubmit} uk-grid="true">
+          <div className="uk-width-1-4@s">
+            <TextFieldGroup
+              placeholder="* Role"
+              name="role"
+              type="text"
+              value={this.state.role}
+              onChange={this.onChange}
+            />
+          </div>
+          <div className="uk-width-1-4@s">
+            <TextFieldGroup
+              placeholder="* Company"
+              name="company"
+              type="text"
+              value={this.state.company}
+              onChange={this.onChange}
+            />
+          </div>
+          <div className="uk-width-1-4@s">
+            <TextFieldGroup
+              placeholder="* Link"
+              name="link"
+              type="text"
+              value={this.state.link}
+              onChange={this.onChange}
+            />
+          </div>
+          <div className="uk-width-1-4@s">
+            <TextFieldGroup
+              placeholder="Location"
+              name="location"
+              type="text"
+              value={this.state.location}
+              onChange={this.onChange}
+            />
+          </div>
+          <div className="uk-width-1-4@s">
+            <SelectListGroup
+              name="seniority"
+              value={this.state.seniority}
+              onChange={this.onChange}
+              options={seniorityOptions}
+            />
+          </div>
+          <div className="uk-width-1-4@s">
+            <SelectListGroup
+              name="salaryRange"
+              value={this.state.salaryRange}
+              onChange={this.onChange}
+              options={salaryOptions}
+            />
+          </div>
+          <button className="uk-button uk-button-secondary uk-width-1-4@s">
+            Add Job
+          </button>
+          <button
+            onClick={this.clearForm}
+            className="uk-button uk-button-danger uk-width-1-4@s"
           >
-            <div className="uk-width-1-2@s">
-              <TextFieldGroup
-                placeholder="* Role"
-                name="role"
-                type="text"
-                value={this.state.role}
-                onChange={this.onChange}
-              />
-            </div>
-            <div className="uk-width-1-2@s">
-              <TextFieldGroup
-                placeholder="* Company"
-                name="company"
-                type="text"
-                value={this.state.company}
-                onChange={this.onChange}
-              />
-            </div>
-            <div className="uk-width-1-2@s">
-              <TextFieldGroup
-                placeholder="* Link"
-                name="link"
-                type="text"
-                value={this.state.link}
-                onChange={this.onChange}
-              />
-            </div>
-            <div className="uk-width-1-2@s">
-              <TextFieldGroup
-                placeholder="City"
-                name="location"
-                type="text"
-                value={this.state.location}
-                onChange={this.onChange}
-              />
-            </div>
-            <div className="uk-width-1-4@s">
-              <SelectListGroup
-                name="seniority"
-                value={this.state.seniority}
-                onChange={this.onChange}
-                options={seniorityOptions}
-              />
-            </div>
-            <div className="uk-width-1-4@s">
-              <SelectListGroup
-                name="salaryRange"
-                value={this.state.salaryRange}
-                onChange={this.onChange}
-                options={salaryOptions}
-              />
-            </div>
-            <button className="uk-button uk-button-secondary uk-width-1-4@s">
-              Add Job
-            </button>
-            <button
-              onClick={this.clearForm}
-              className="uk-button uk-button-danger uk-width-1-4@s"
-            >
-              Clear
-            </button>
-          </form>
-        </div>
+            Clear
+          </button>
+        </form>
         <hr />
-        <div className="uk-grid-small" uk-grid="true">
-          <p className="uk-text-danger">{errors.role}</p>
-          <p className="uk-text-danger">{errors.company}</p>
-          <p className="uk-text-danger">{errors.link}</p>
-        </div>
-        <Jobs />
       </div>
     );
   }
 }
 
-AddJobs.propTypes = {
+AddJobsForm.propTypes = {
   addJob: PropTypes.func.isRequired,
-  jobs: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  jobs: state.jobs,
   errors: state.errors
 });
 
 export default connect(
   mapStateToProps,
   { addJob }
-)(AddJobs);
+)(AddJobsForm);

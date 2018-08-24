@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import '../../css/components/CreateProfile.css';
+import '../../css/components/Profile.css';
 import TextFieldGroup from '../common/TextFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import { createProfile } from '../../actions/profileActions';
@@ -60,7 +60,7 @@ class CreateProfile extends Component {
     ];
 
     return (
-      <div className="create-profile uk-flex uk-flex-center uk-flex-middle">
+      <div className="create-profile">
         <div className="uk-container">
           <br />
           <h1 className="uk-text-lead">Create Your Profile</h1>

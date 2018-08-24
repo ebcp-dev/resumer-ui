@@ -23,6 +23,4 @@ A UI for the Resumer API created with React, Redux.
 
 ## TODO:
 
-- ui for editing profile details
 - visualize statistics based on user data
-- add content informational content

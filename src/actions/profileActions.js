@@ -17,6 +17,10 @@ export const getCurrentProfile = () => dispatch => {
         type: GET_PROFILE,
         payload: res.data || {}
       });
+      dispatch({
+        type: GET_ERRORS,
+        payload: {}
+      });
     })
     .catch(err =>
       dispatch({
@@ -31,6 +35,22 @@ export const createProfile = (profileData, history) => dispatch => {
   axios
     .post('/api/profile', profileData)
     .then(res => history.push('/dashboard'))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+// Edit Profile
+export const editProfile = (editProfileData, history) => dispatch => {
+  axios
+    .put('/api/profile', editProfileData)
+    .then(res => {
+      dispatch(getCurrentProfile());
+      history.push('/dashboard/profile');
+    })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

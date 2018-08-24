@@ -1,5 +1,6 @@
-.navbar {
-  height: 10%;
+.navbar.uk-navbar {
+  height: 10vh;
+  background-image: linear-gradient(to bottom right, #9800b4, #ffa200);
 }
 @media (max-width: 375px) {
   nav.navbar > div > ul > li > a {
@@ -9,7 +10,11 @@
 .landing {
   background: url(../../assets/img/showcase.jpg);
   background-size: cover;
+  height: 80vh;
+}
+.welcome-card {
+  background-color: #e49000;
 }
 .footer {
-  height: 10%;
+  height: 10vh;
 }

@@ -16,8 +16,7 @@ class Navbar extends Component {
   }
 
   render() {
-    // eslint-disable-next-line
-    const { isAuthenticated, user } = this.props.auth;
+    const { isAuthenticated } = this.props.auth;
 
     const authLinks = (
       <ul className="uk-navbar-nav">
@@ -49,24 +48,24 @@ class Navbar extends Component {
     );
 
     return (
-      <nav id="navbar" className="navbar uk-navbar-container" uk-navbar="true">
+      <nav
+        id="navbar"
+        className="uk-navbar-container navbar uk-light"
+        uk-navbar="true"
+      >
         <div className="uk-navbar-left">
           <ul className="uk-navbar-nav">
             <li className="uk-active">
-              {isAuthenticated ? (
-                <Link className="nav-link" to="/">
+              <Link className="nav-link" to="/">
+                Resumer
+              </Link>
+            </li>
+            <li className="uk-active">
+              {isAuthenticated && (
+                <Link className="nav-link" to="/dashboard">
                   Dashboard
                 </Link>
-              ) : (
-                <Link className="nav-link" to="/">
-                  DevConnector
-                </Link>
               )}
-            </li>
-            <li>
-              <Link className="nav-link" to="/profiles">
-                Developers
-              </Link>
             </li>
           </ul>
         </div>
