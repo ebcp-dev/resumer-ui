@@ -1,0 +1,9 @@
+.login,
+.register {
+  height: 80vh;
+  background: linear-gradient(
+    122deg,
+    rgba(199, 0, 255, 1) 0%,
+    rgba(255, 139, 0, 1) 100%
+  );
+}

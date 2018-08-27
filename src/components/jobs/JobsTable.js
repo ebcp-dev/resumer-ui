@@ -5,7 +5,7 @@ import { AgGridReact } from 'ag-grid-react';
 
 import 'ag-grid/dist/styles/ag-grid.css';
 import 'ag-grid/dist/styles/ag-theme-balham.css';
-import '../../css/components/Jobs.css';
+import '../../css/pages/Jobs.css';
 import { editJob, getJobs, deleteJobs } from '../../actions/jobActions';
 import LoadingComponent from '../common/LoadingComponent';
 
@@ -73,7 +73,7 @@ class JobsTable extends Component {
       tableContent = <LoadingComponent />;
     } else {
       tableContent = (
-        <div className="ag-grid-table ag-theme-balham">
+        <div className="ag-theme-balham ag-grid-table">
           <p className="uk-text-lead">Jobs ({jobsList.length})</p>
           <a onClick={this.onDeleteSelected}>
             <span className="uk-label uk-label-danger">Delete Selected</span>
@@ -151,7 +151,7 @@ class JobsTable extends Component {
               {
                 headerName: 'Company',
                 field: 'company',
-                minWidth: 80,
+                minWidth: 100,
                 maxWidth: 130,
                 editable: true
               },
@@ -165,8 +165,8 @@ class JobsTable extends Component {
               {
                 headerName: 'Experience',
                 field: 'seniority',
-                minWidth: 70,
-                maxWidth: 100,
+                minWidth: 100,
+                maxWidth: 120,
                 editable: true,
                 cellEditor: 'agSelectCellEditor',
                 cellEditorParams: {
@@ -217,8 +217,8 @@ class JobsTable extends Component {
                 headerName: 'Updated',
                 field: 'updatedAt',
                 sort: 'desc',
-                minWidth: 80,
-                maxWidth: 120,
+                minWidth: 120,
+                maxWidth: 150,
                 cellRenderer: params => {
                   return `<p>${params.data.updatedAt.slice(0, 10)}</p>`;
                 }

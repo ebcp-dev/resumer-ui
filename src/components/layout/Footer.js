@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import '../../css/components/Layout.css';
+import '../../css/pages/Layout.css';
 
 export default () => {
   return (
-    <nav className="footer uk-navbar-container" uk-navbar="true">
+    <nav className="uk-navbar-container footer uk-light" uk-navbar="true">
       <div className="uk-navbar-left">
         <ul className="uk-navbar-nav">
           <li className="uk-active">
@@ -15,7 +15,7 @@ export default () => {
       </div>
       <div className="uk-navbar-right">
         <ul className="uk-navbar-nav">
-          <li>
+          <li className="uk-active">
             <Link to="#navbar" uk-scroll="true">
               Scroll Up
             </Link>

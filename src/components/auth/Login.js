@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
 
-import '../../css/components/Auth.css';
+import '../../css/pages/Auth.css';
 import TextFieldGroup from '../common/TextFieldGroup';
 
 class Login extends Component {
@@ -52,31 +52,29 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="login uk-flex uk-flex-center uk-flex-middle">
-        <div className="uk-card uk-card-default uk-card-large uk-card-body">
-          <div className="uk-container">
-            <h3 className="uk-card-title">Log In</h3>
-            <form onSubmit={this.onSubmit}>
-              <TextFieldGroup
-                placeholder="Email Address"
-                name="email"
-                type="email"
-                value={this.state.email}
-                onChange={this.onChange}
-                error={errors.email}
-              />
+      <div className="uk-card uk-card-default uk-card-large uk-card-body login">
+        <div className="uk-container uk-light">
+          <h3>Log In</h3>
+          <form onSubmit={this.onSubmit}>
+            <TextFieldGroup
+              placeholder="Email Address"
+              name="email"
+              type="email"
+              value={this.state.email}
+              onChange={this.onChange}
+              error={errors.email}
+            />
 
-              <TextFieldGroup
-                placeholder="Password"
-                name="password"
-                type="password"
-                value={this.state.password}
-                onChange={this.onChange}
-                error={errors.password}
-              />
-              <button className="uk-button uk-button-secondary">Submit</button>
-            </form>
-          </div>
+            <TextFieldGroup
+              placeholder="Password"
+              name="password"
+              type="password"
+              value={this.state.password}
+              onChange={this.onChange}
+              error={errors.password}
+            />
+            <button className="uk-button uk-button-secondary">Submit</button>
+          </form>
         </div>
       </div>
     );

@@ -1,0 +1,25 @@
+.jobs {
+  height: 80vh;
+}
+.ag-grid-table {
+  height: 100%;
+}
+.label-saved {
+  background-color: #00a2ff;
+  color: #fff;
+}
+.label-accepted {
+  background-color: #51d500;
+  color: #fff;
+}
+.label-offered {
+  background-color: #a100ff;
+  color: #fff;
+}
+.label-interviewing {
+  background-color: #cb0091;
+  color: #fff;
+}
+:focus {
+  outline: none;
+}

@@ -14,8 +14,8 @@ import PrivateRoute from './components/common/PrivateRoute';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
-import SignUp from './components/auth/SignUp';
 import Login from './components/auth/Login';
+import SignUp from './components/auth/SignUp';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile/CreateProfile';
 
@@ -40,7 +40,7 @@ if (localStorage.jwtToken) {
     // Clear jobs list
     store.dispatch(clearCurrentJobs());
     // Redirect to login
-    window.location.href = '/login';
+    window.location.href = '/auth';
   }
 }
 
@@ -49,11 +49,11 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div>
+          <div className="main">
             <Navbar />
             <Route exact path="/" component={Landing} />
-            <Route exact path="/register" component={SignUp} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={SignUp} />
             <Switch>
               <PrivateRoute path="/dashboard" component={Dashboard} />
             </Switch>

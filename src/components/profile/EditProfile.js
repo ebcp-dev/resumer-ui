@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import '../../css/components/Profile.css';
+import '../../css/pages/Profile.css';
 import LoadingComponent from '../common/LoadingComponent';
 import TextFieldGroup from '../common/TextFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';

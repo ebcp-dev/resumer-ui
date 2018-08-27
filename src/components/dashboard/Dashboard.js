@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
 
-import '../../css/components/Dashboard.css';
+import '../../css/pages/Dashboard.css';
 
 import EditProfile from '../profile/EditProfile';
 import Jobs from '../jobs/Jobs';
@@ -9,11 +9,9 @@ import Profile from '../profile/Profile';
 
 export default props => {
   return (
-    <div className="uk-grid-collapse" uk-grid="true">
+    <div className="uk-grid-collapse dashboard" uk-grid="true">
       <div className="uk-width-1-4@s uk-dark sidebar">
         <div className="uk-padding">
-          <Profile />
-          <hr />
           <ul className="uk-nav uk-nav-default" uk-nav="true">
             <li className="uk-nav-header uk-visible@m">Navigation</li>
             <li className="uk-hidden@m">
@@ -28,6 +26,9 @@ export default props => {
               <Link to={`${props.match.url}/profile`}>Edit Profile</Link>
             </li>
           </ul>
+          <hr />
+          <Profile />
+          <hr />
         </div>
       </div>
       <div className="uk-width-expand@s">

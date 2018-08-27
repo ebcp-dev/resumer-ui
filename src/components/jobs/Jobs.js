@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import '../../css/components/Jobs.css';
+import '../../css/pages/Jobs.css';
 import { addJob } from '../../actions/jobActions';
 
 import AddJobs from './AddJobs';
@@ -68,7 +68,7 @@ class Jobs extends Component {
     const { errors } = this.state;
 
     return (
-      <div>
+      <div className="jobs">
         <AddJobs />
         <div className="uk-grid-small" uk-grid="true">
           <p className="uk-text-danger">{errors.role}</p>

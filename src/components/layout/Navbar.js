@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import '../../css/components/Layout.css';
+import '../../css/pages/Layout.css';
 
 import { logoutUser } from '../../actions/authActions';
 import { clearCurrentProfile } from '../../actions/profileActions';
@@ -35,7 +35,7 @@ class Navbar extends Component {
     const guestLinks = (
       <ul className="uk-navbar-nav">
         <li className="uk-active">
-          <Link className="nav-link" to="/register">
+          <Link className="nav-link" to="/signup">
             Sign Up
           </Link>
         </li>

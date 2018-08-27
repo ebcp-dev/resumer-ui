@@ -1,0 +1,24 @@
+.navbar.uk-navbar {
+  height: 10vh;
+  background-color: #d900ff;
+}
+@media (max-width: 375px) {
+  nav.navbar > div > ul > li > a {
+    font-size: 60%;
+  }
+}
+.landing {
+  background: linear-gradient(
+    122deg,
+    rgba(199, 0, 255, 1) 0%,
+    rgba(255, 139, 0, 1) 100%
+  );
+  height: 80vh;
+}
+.welcome-card {
+  margin-top: 15%;
+  background-color: inherit;
+}
+nav.uk-navbar-container.footer.uk-navbar {
+  background-color: #e99300;
+}

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { getCurrentProfile } from '../../actions/profileActions';
 
-import '../../css/components/Profile.css';
+import '../../css/pages/Profile.css';
 import LoadingComponent from '../common/LoadingComponent';
 
 class Profile extends Component {
@@ -47,27 +47,29 @@ class Profile extends Component {
             {(profile.website || profile.linkedin || profile.github) && (
               <p>Links:</p>
             )}
-            {profile.website && (
-              <p>
-                <a href={profile.website} target="_blank">
-                  {profile.website}
-                </a>
-              </p>
-            )}
-            {profile.linkedin && (
-              <p>
-                <a href={profile.linkedin} target="_blank">
-                  {profile.linkedin}
-                </a>
-              </p>
-            )}
-            {profile.github && (
-              <p>
-                <a href={profile.github} target="_blank">
-                  {profile.github}
-                </a>
-              </p>
-            )}
+            <ul className="uk-list">
+              <li>
+                {profile.website && (
+                  <a href={profile.website} target="_blank">
+                    Website
+                  </a>
+                )}
+              </li>
+              <li>
+                {profile.linkedin && (
+                  <a href={profile.linkedin} target="_blank">
+                    LinkedIn
+                  </a>
+                )}
+              </li>
+              <li>
+                {profile.github && (
+                  <a href={profile.github} target="_blank">
+                    GitHub
+                  </a>
+                )}
+              </li>
+            </ul>
             <p>Contact:</p>
             <a className="uk-link-text" href={`mailto:${user.email}`}>
               {user.email}

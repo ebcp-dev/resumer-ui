@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/authActions';
 
-import '../../css/components/Auth.css';
+import '../../css/pages/Auth.css';
 import TextFieldGroup from '../common/TextFieldGroup';
 
 class SignUp extends Component {
@@ -53,38 +53,36 @@ class SignUp extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="register uk-flex uk-flex-center uk-flex-middle">
-        <div className="uk-card uk-card-default uk-card-large uk-card-body">
-          <div className="uk-container">
-            <p className="uk-text-lead">Sign Up</p>
-            <form onSubmit={this.onSubmit}>
-              <TextFieldGroup
-                placeholder="Email"
-                name="email"
-                type="email"
-                value={this.state.email}
-                onChange={this.onChange}
-                error={errors.email}
-              />
-              <TextFieldGroup
-                placeholder="Password"
-                name="password"
-                type="password"
-                value={this.state.password}
-                onChange={this.onChange}
-                error={errors.password}
-              />
-              <TextFieldGroup
-                placeholder="Confirm Password"
-                name="password2"
-                type="password"
-                value={this.state.password2}
-                onChange={this.onChange}
-                error={errors.password2}
-              />
-              <button className="uk-button uk-button-secondary">Submit</button>
-            </form>
-          </div>
+      <div className="uk-card uk-card-default uk-card-large uk-card-body register">
+        <div className="uk-container uk-light">
+          <h3>Sign Up</h3>
+          <form onSubmit={this.onSubmit}>
+            <TextFieldGroup
+              placeholder="Email"
+              name="email"
+              type="email"
+              value={this.state.email}
+              onChange={this.onChange}
+              error={errors.email}
+            />
+            <TextFieldGroup
+              placeholder="Password"
+              name="password"
+              type="password"
+              value={this.state.password}
+              onChange={this.onChange}
+              error={errors.password}
+            />
+            <TextFieldGroup
+              placeholder="Confirm Password"
+              name="password2"
+              type="password"
+              value={this.state.password2}
+              onChange={this.onChange}
+              error={errors.password2}
+            />
+            <button className="uk-button uk-button-secondary">Submit</button>
+          </form>
         </div>
       </div>
     );
