@@ -26,7 +26,7 @@ export default props => {
               <Link to={`${props.match.url}/profile`}>Edit Profile</Link>
             </li>
           </ul>
-          <hr />
+          <hr className="uk-visible@m" />
           <Profile />
           <hr />
         </div>

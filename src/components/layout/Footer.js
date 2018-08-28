@@ -5,10 +5,10 @@ import '../../css/pages/Layout.css';
 
 export default () => {
   return (
-    <nav className="uk-navbar-container footer uk-light" uk-navbar="true">
+    <nav className="uk-navbar-container uk-light footer" uk-navbar="true">
       <div className="uk-navbar-left">
         <ul className="uk-navbar-nav">
-          <li className="uk-active">
+          <li>
             <Link to="/">Home</Link>
           </li>
         </ul>

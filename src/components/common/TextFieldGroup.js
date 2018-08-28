@@ -28,7 +28,7 @@ const TextFieldGroup = ({
           disabled={disabled}
         />
       </div>
-      {error && <p className="uk-text-danger">{error}</p>}
+      {error && <p className="uk-text-warning">{error}</p>}
     </div>
   );
 };
