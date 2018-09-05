@@ -40,7 +40,7 @@ if (localStorage.jwtToken) {
     // Clear jobs list
     store.dispatch(clearCurrentJobs());
     // Redirect to login
-    window.location.href = '/auth';
+    window.location.href = '/login';
   }
 }
 

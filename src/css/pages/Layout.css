@@ -20,5 +20,6 @@
   background-color: inherit;
 }
 nav.uk-navbar-container.footer.uk-navbar {
+  height: 10vh;
   background-color: #e99300;
 }
