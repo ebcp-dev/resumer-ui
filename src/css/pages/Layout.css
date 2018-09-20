@@ -1,5 +1,4 @@
 .navbar.uk-navbar {
-  height: 10vh;
   background-color: #d900ff;
 }
 @media (max-width: 375px) {
@@ -13,13 +12,16 @@
     rgba(199, 0, 255, 1) 0%,
     rgba(255, 139, 0, 1) 100%
   );
-  height: 80vh;
+}
+@media (min-height: 414px) {
+  .landing {
+    padding-bottom: 25vh;
+  }
 }
 .welcome-card {
   margin-top: 10%;
   background-color: inherit;
 }
 nav.uk-navbar-container.footer.uk-navbar {
-  height: 10vh;
   background-color: #e99300;
 }
