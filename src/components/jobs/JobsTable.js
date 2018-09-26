@@ -207,6 +207,7 @@ class JobsTable extends Component {
               {
                 headerName: 'Added',
                 field: 'createdAt',
+                sort: 'desc',
                 minWidth: 80,
                 maxWidth: 100,
                 cellRenderer: params => {
@@ -216,7 +217,6 @@ class JobsTable extends Component {
               {
                 headerName: 'Updated',
                 field: 'updatedAt',
-                sort: 'desc',
                 minWidth: 120,
                 maxWidth: 150,
                 cellRenderer: params => {
