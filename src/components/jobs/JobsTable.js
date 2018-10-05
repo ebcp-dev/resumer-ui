@@ -95,6 +95,7 @@ class JobsTable extends Component {
             editType="fullRow"
             onSelectionChanged={this.onSelectionChanged}
             rowData={jobsList}
+            rowSelection="multiple"
             onGridReady={this.onGridReady}
             onRowEditingStopped={this.onRowEditingStopped}
             columnDefs={[
