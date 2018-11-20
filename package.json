@@ -22,5 +22,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://35.209.36.123:5000/"
+  "proxy": "https://resumer-api.herokuapp.com/"
 }
