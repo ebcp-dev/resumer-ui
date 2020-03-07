@@ -32,6 +32,13 @@ const TextFieldGroup = ({
           <i className={icon}></i>
         </span>
       </div>
+      {addons && (
+        <div className="control">
+          <a className="button is-info">
+            <i className="fas fa-copy"></i>
+          </a>
+        </div>
+      )}
       {error && <p className="help has-text-danger">{error}</p>}
     </div>
   );
