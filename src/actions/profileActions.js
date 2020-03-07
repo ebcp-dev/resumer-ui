@@ -34,7 +34,7 @@ export const getCurrentProfile = () => dispatch => {
 export const createProfile = (profileData, history) => dispatch => {
   axios
     .post('/api/profile', profileData)
-    .then(res => history.push('/dashboard'))
+    .then(res => history.go('/profile'))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -49,7 +49,7 @@ export const editProfile = (editProfileData, history) => dispatch => {
     .put('/api/profile', editProfileData)
     .then(res => {
       dispatch(getCurrentProfile());
-      history.push('/dashboard/profile');
+      history.go('/profile');
     })
     .catch(err =>
       dispatch({

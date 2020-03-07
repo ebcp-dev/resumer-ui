@@ -16,8 +16,8 @@ A UI for the Resumer API created with React, Redux.
   - Conditional jsx classNames
 - [ag-Grid](https://www.ag-grid.com)
   - Interactive data table
-- [UIKit](https://getuikit.com/)
-  - UI framework
+- [Bulma.css](https://bulma.io/)
+  - Lightweight UI framework
 - [SpinKit](http://tobiasahlin.com/spinkit/)
   - Simple CSS spinners
 

@@ -6,29 +6,33 @@ const TextFieldGroup = ({
   name,
   placeholder,
   value,
-  error,
+  icon,
   info,
+  required,
+  addons,
   type,
   onChange,
+  error,
   disabled
 }) => {
   return (
-    <div>
-      {info && <p className="uk-text-primary">{info}</p>}
-      <div className="uk-margin">
+    <div className={classnames('field', { 'has-addons': addons })}>
+      <label className="label">{info}</label>
+      <div className="control is-expanded has-icons-left">
         <input
+          className={classnames('input', { 'is-info': required })}
           type={type}
-          className={classnames('uk-input', {
-            'uk-form-danger': error
-          })}
           placeholder={placeholder}
           name={name}
           value={value}
           onChange={onChange}
           disabled={disabled}
         />
+        <span className="icon is-small is-left">
+          <i className={icon}></i>
+        </span>
       </div>
-      {error && <p className="uk-text-warning">{error}</p>}
+      {error && <p className="help has-text-danger">{error}</p>}
     </div>
   );
 };

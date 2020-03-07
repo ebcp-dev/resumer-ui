@@ -23,7 +23,7 @@ class SignUp extends Component {
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
+      this.props.history.push('/profile');
     }
   }
 
@@ -53,38 +53,51 @@ class SignUp extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="uk-card uk-card-default uk-card-large uk-card-body register">
-        <div className="uk-container uk-light">
-          <h3>Sign Up</h3>
-          <form onSubmit={this.onSubmit}>
-            <TextFieldGroup
-              placeholder="Email"
-              name="email"
-              type="email"
-              value={this.state.email}
-              onChange={this.onChange}
-              error={errors.email}
-            />
-            <TextFieldGroup
-              placeholder="Password"
-              name="password"
-              type="password"
-              value={this.state.password}
-              onChange={this.onChange}
-              error={errors.password}
-            />
-            <TextFieldGroup
-              placeholder="Confirm Password"
-              name="password2"
-              type="password"
-              value={this.state.password2}
-              onChange={this.onChange}
-              error={errors.password2}
-            />
-            <button className="uk-button uk-button-secondary">Submit</button>
-          </form>
+      <section className="section">
+        <div className="container">
+          <div className="content">
+            <h1>Sign Up</h1>
+            <form onSubmit={this.onSubmit}>
+              <TextFieldGroup
+                info="Email"
+                placeholder="Email Address"
+                name="email"
+                required={true}
+                type="email"
+                icon="fas fa-envelope"
+                value={this.state.email}
+                onChange={this.onChange}
+                error={errors.email}
+              />
+              <TextFieldGroup
+                info="Password"
+                placeholder="Password"
+                name="password"
+                required={true}
+                type="password"
+                icon="fas fa-lock"
+                value={this.state.password}
+                onChange={this.onChange}
+                error={errors.password}
+              />
+              <TextFieldGroup
+                info="Confirm Password"
+                placeholder="Confirm Password"
+                name="password2"
+                required={true}
+                type="password"
+                icon="fas fa-lock"
+                value={this.state.password2}
+                onChange={this.onChange}
+                error={errors.password2}
+              />
+              <div className="control">
+                <button className="button is-link">Submit</button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
+      </section>
     );
   }
 }
@@ -100,7 +113,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
-  mapStateToProps,
-  { registerUser }
-)(withRouter(SignUp));
+export default connect(mapStateToProps, { registerUser })(withRouter(SignUp));

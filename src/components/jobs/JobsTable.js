@@ -72,16 +72,29 @@ class JobsTable extends Component {
     if (jobsList === null || loading) {
       tableContent = <LoadingComponent />;
     } else {
+      console.log(jobsList);
       tableContent = (
         <div className="ag-theme-balham ag-grid-table">
-          <p className="uk-text-lead">Jobs ({jobsList.length})</p>
-          <a onClick={this.onDeleteSelected}>
-            <span className="uk-label uk-label-danger">Delete Selected</span>
-          </a>{' '}
-          <a onClick={this.onRefresh}>
-            <span className="uk-label uk-label-success">Refresh Table</span>
-          </a>
-          <p className="uk-text-meta">
+          <p className="subtitle">Jobs ({jobsList.length})</p>
+          <div className="field is-grouped">
+            <p className="control">
+              <a
+                onClick={this.onDeleteSelected}
+                className="button is-small is-danger"
+              >
+                Delete selected
+              </a>
+            </p>
+            <p className="control">
+              <a
+                onClick={this.onRefresh}
+                className="button is-small is-success"
+              >
+                Refresh
+              </a>
+            </p>
+          </div>
+          <p className="help">
             Double click on a row to edit • Click on column header to
             sort/filter • Drag column header to rearrange or resize columns
           </p>
@@ -200,9 +213,7 @@ class JobsTable extends Component {
                 maxWidth: 350,
                 editable: true,
                 cellRenderer: params => {
-                  return `<a href=${params.data.link}><span>${
-                    params.data.link
-                  }</span></a>`;
+                  return `<a href=${params.data.link}><span>${params.data.link}</span></a>`;
                 }
               },
               {
@@ -229,7 +240,7 @@ class JobsTable extends Component {
         </div>
       );
     }
-    return <div className="jobs">{tableContent}</div>;
+    return <div className="jobsTable">{tableContent}</div>;
   }
 }
 
@@ -246,7 +257,6 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
-  mapStateToProps,
-  { editJob, getJobs, deleteJobs }
-)(JobsTable);
+export default connect(mapStateToProps, { editJob, getJobs, deleteJobs })(
+  JobsTable
+);

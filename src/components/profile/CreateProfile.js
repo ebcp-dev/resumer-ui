@@ -17,6 +17,9 @@ class CreateProfile extends Component {
       website: '',
       linkedin: '',
       github: '',
+      stackoverflow: '',
+      dribbble: '',
+      twitter: '',
       errors: {}
     };
 
@@ -38,7 +41,10 @@ class CreateProfile extends Component {
       status: this.state.status,
       website: this.state.website,
       linkedin: this.state.linkedin,
-      github: this.state.github
+      github: this.state.github,
+      stackoverflow: this.state.stackoverflow,
+      dribbble: this.state.dribbble,
+      twitter: this.state.twitter
     };
     this.props.createProfile(profileData, this.props.history);
   }
@@ -52,60 +58,95 @@ class CreateProfile extends Component {
 
     // Select options for status
     const options = [
-      { label: 'Current Status', value: 0 },
+      { label: 'Status *', value: 0 },
       { label: 'Actively Looking', value: 'Actively Looking' },
       { label: 'Not Looking', value: 'Not Looking' },
-      { label: 'Interviewing', value: 'Interviewing' },
-      { label: 'Offered', value: 'Offered' }
+      { label: 'Interviewing', value: 'Interviewing' }
     ];
 
     return (
-      <div className="create-profile">
-        <div className="uk-container uk-light">
-          <br />
-          <h3>Create Your Profile</h3>
-          {errors.profile && <p className="uk-text-danger">{errors.profile}</p>}
-          <form onSubmit={this.onSubmit}>
-            <TextFieldGroup
-              placeholder="* Username"
-              name="username"
-              value={this.state.username}
-              onChange={this.onChange}
-              error={errors.username}
-            />
-            <SelectListGroup
-              placeholder="Status"
-              name="status"
-              value={this.state.status}
-              onChange={this.onChange}
-              options={options}
-              error={errors.status}
-            />
-            <TextFieldGroup
-              placeholder="Website"
-              name="website"
-              value={this.state.website}
-              onChange={this.onChange}
-              error={errors.website}
-            />
-            <TextFieldGroup
-              placeholder="LinkedIn"
-              name="linkedin"
-              value={this.state.linkedin}
-              onChange={this.onChange}
-              error={errors.linkedin}
-            />
-            <TextFieldGroup
-              placeholder="Github"
-              name="github"
-              value={this.state.github}
-              onChange={this.onChange}
-              error={errors.github}
-            />
-            <button className="uk-button uk-button-secondary">Submit</button>
-            <hr />
-          </form>
-        </div>
+      <div className="container">
+        {errors.profile && (
+          <p className="help has-text-danger">{errors.profile}</p>
+        )}
+        <form onSubmit={this.onSubmit}>
+          <TextFieldGroup
+            placeholder="Username *"
+            name="username"
+            type="text"
+            required={true}
+            icon="fas fa-portrait"
+            value={this.state.username}
+            onChange={this.onChange}
+            error={errors.username}
+          />
+          <SelectListGroup
+            placeholder="Status"
+            name="status"
+            info="Job search status"
+            required={true}
+            value={this.state.status}
+            onChange={this.onChange}
+            options={options}
+            error={errors.status}
+          />
+          <TextFieldGroup
+            placeholder="Website"
+            name="website"
+            type="url"
+            icon="fas fa-desktop"
+            value={this.state.website}
+            onChange={this.onChange}
+            error={errors.website}
+          />
+          <TextFieldGroup
+            placeholder="LinkedIn"
+            name="linkedin"
+            type="url"
+            icon="fab fa-linkedin"
+            value={this.state.linkedin}
+            onChange={this.onChange}
+            error={errors.linkedin}
+          />
+          <TextFieldGroup
+            placeholder="Github"
+            name="github"
+            type="url"
+            icon="fab fa-github"
+            value={this.state.github}
+            onChange={this.onChange}
+            error={errors.github}
+          />
+          <TextFieldGroup
+            placeholder="Stack Overflow"
+            name="stackoverflow"
+            type="url"
+            icon="fab fa-stack-overflow"
+            value={this.state.stackoverflow}
+            onChange={this.onChange}
+            error={errors.stackoverflow}
+          />
+          <TextFieldGroup
+            placeholder="Dribbble"
+            name="dribbble"
+            type="url"
+            icon="fab fa-dribbble"
+            value={this.state.dribbble}
+            onChange={this.onChange}
+            error={errors.dribbble}
+          />
+          <TextFieldGroup
+            placeholder="twitter"
+            name="twitter"
+            type="url"
+            icon="fab fa-twitter"
+            value={this.state.twitter}
+            onChange={this.onChange}
+            error={errors.twitter}
+          />
+          <button className="button is-link">Submit</button>
+          <hr />
+        </form>
       </div>
     );
   }
@@ -121,7 +162,6 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
-  mapStateToProps,
-  { createProfile }
-)(withRouter(CreateProfile));
+export default connect(mapStateToProps, { createProfile })(
+  withRouter(CreateProfile)
+);

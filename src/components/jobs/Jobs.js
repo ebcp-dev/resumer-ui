@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 
 import '../../css/pages/Jobs.css';
@@ -68,15 +69,32 @@ class Jobs extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="jobs">
-        <AddJobs />
-        <div className="uk-grid-small" uk-grid="true">
-          <p className="uk-text-danger">{errors.role}</p>
-          <p className="uk-text-danger">{errors.company}</p>
-          <p className="uk-text-danger">{errors.link}</p>
+      <section className="section">
+        <div className="tile is-ancestor">
+          <div className="tile is-vertical">
+            <div className="tile is-parent is-vertical">
+              <AddJobs />
+            </div>
+            <br />
+            <div className="container tags">
+              <span className={classnames({ tag: errors.role }, 'is-danger')}>
+                {errors.role}
+              </span>
+              <span
+                className={classnames({ tag: errors.company }, 'is-danger')}
+              >
+                {errors.company}
+              </span>
+              <span className={classnames({ tag: errors.link }, 'is-danger')}>
+                {errors.link}
+              </span>
+            </div>
+            <div className="tile is-parent is-vertical">
+              <JobsTable />
+            </div>
+          </div>
         </div>
-        <JobsTable />
-      </div>
+      </section>
     );
   }
 }
@@ -92,7 +110,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
-  mapStateToProps,
-  { addJob }
-)(Jobs);
+export default connect(mapStateToProps, { addJob })(Jobs);

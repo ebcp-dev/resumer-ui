@@ -12,12 +12,12 @@ import store from './store';
 import PrivateRoute from './components/common/PrivateRoute';
 
 import Navbar from './components/layout/Navbar';
-import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
-import Login from './components/auth/Login';
+import Footer from './components/layout/Footer';
 import SignUp from './components/auth/SignUp';
-import Dashboard from './components/dashboard/Dashboard';
-import CreateProfile from './components/profile/CreateProfile';
+import Login from './components/auth/Login';
+import Jobs from './components/jobs/Jobs';
+import Profile from './components/profile/Profile';
 
 import './css/App.css';
 
@@ -49,20 +49,16 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="main">
+          <div>
             <Navbar />
             <Route exact path="/" component={Landing} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={SignUp} />
             <Switch>
-              <PrivateRoute path="/dashboard" component={Dashboard} />
+              <PrivateRoute path="/jobs" component={Jobs} />
             </Switch>
             <Switch>
-              <PrivateRoute
-                exact
-                path="/create-profile"
-                component={CreateProfile}
-              />
+              <PrivateRoute path="/profile" component={Profile} />
             </Switch>
             <Footer />
           </div>

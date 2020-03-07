@@ -67,7 +67,7 @@ class AddJobsForm extends Component {
   render() {
     // Select options for seniority
     const seniorityOptions = [
-      { label: 'Unspecified Experience Level', value: 'Unspecified' },
+      { label: 'Experience', value: 'Unspecified' },
       { label: 'Junior', value: 'Junior' },
       { label: 'Mid Level', value: 'Mid Level' },
       { label: 'Senior', value: 'Senior' }
@@ -75,7 +75,7 @@ class AddJobsForm extends Component {
 
     // Select options for salary range
     const salaryOptions = [
-      { label: 'Unspecified Salary', value: 'Unspecified' },
+      { label: 'Salary', value: 'Unspecified' },
       { label: '0-50k', value: '0-50k' },
       { label: '50-100k', value: '50-100k' },
       { label: '100-150k', value: '100-150k' },
@@ -84,73 +84,78 @@ class AddJobsForm extends Component {
       { label: '250-300k', value: '250-300k' },
       { label: '300k-above', value: '300k-above' }
     ];
-
     return (
-      <div className="addJobs">
-        <form className="uk-grid-small" onSubmit={this.onSubmit} uk-grid="true">
-          <div className="uk-width-1-4@s">
-            <TextFieldGroup
-              placeholder="* Role"
-              name="role"
-              type="text"
-              value={this.state.role}
-              onChange={this.onChange}
-            />
+      <div className="box">
+        <h1 className="title has-text-centered">Add jobs</h1>
+        <form onSubmit={this.onSubmit}>
+          <div className="field is-horizontal">
+            <div className="field-label is-normal">
+              <label className="label">Details</label>
+            </div>
+            <div className="field-body">
+              <TextFieldGroup
+                placeholder="Role *"
+                name="role"
+                required={true}
+                type="text"
+                icon="fas fa-user-tag"
+                value={this.state.role}
+                onChange={this.onChange}
+              />
+              <TextFieldGroup
+                placeholder="Link *"
+                name="link"
+                required={true}
+                type="url"
+                icon="fas fa-link"
+                value={this.state.link}
+                onChange={this.onChange}
+              />
+              <TextFieldGroup
+                placeholder="Company *"
+                name="company"
+                required={true}
+                type="text"
+                icon="fas fa-briefcase"
+                value={this.state.company}
+                onChange={this.onChange}
+              />
+              <TextFieldGroup
+                placeholder="Location"
+                name="location"
+                type="text"
+                icon="fas fa-compass"
+                value={this.state.location}
+                onChange={this.onChange}
+              />
+            </div>
           </div>
-          <div className="uk-width-1-4@s">
-            <TextFieldGroup
-              placeholder="* Company"
-              name="company"
-              type="text"
-              value={this.state.company}
-              onChange={this.onChange}
-            />
+          <div className="field is-horizontal">
+            <div className="field-body">
+              <div className="field-label is-normal">
+                <label className="label">Salary/Experience</label>
+              </div>
+              <SelectListGroup
+                name="salaryRange"
+                value={this.state.salaryRange}
+                onChange={this.onChange}
+                options={salaryOptions}
+              />
+              <SelectListGroup
+                name="seniority"
+                value={this.state.seniority}
+                onChange={this.onChange}
+                options={seniorityOptions}
+              />
+              <div className="buttons">
+                <button className="button is-link">Submit</button>
+                <button onClick={this.clearForm} className="button is-warning">
+                  Clear
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="uk-width-1-4@s">
-            <TextFieldGroup
-              placeholder="* Link"
-              name="link"
-              type="text"
-              value={this.state.link}
-              onChange={this.onChange}
-            />
-          </div>
-          <div className="uk-width-1-4@s">
-            <TextFieldGroup
-              placeholder="Location"
-              name="location"
-              type="text"
-              value={this.state.location}
-              onChange={this.onChange}
-            />
-          </div>
-          <div className="uk-width-1-4@s">
-            <SelectListGroup
-              name="seniority"
-              value={this.state.seniority}
-              onChange={this.onChange}
-              options={seniorityOptions}
-            />
-          </div>
-          <div className="uk-width-1-4@s">
-            <SelectListGroup
-              name="salaryRange"
-              value={this.state.salaryRange}
-              onChange={this.onChange}
-              options={salaryOptions}
-            />
-          </div>
-          <button className="uk-button uk-button-secondary uk-width-1-4@s">
-            Add Job
-          </button>
-          <button
-            onClick={this.clearForm}
-            className="uk-button uk-button-danger uk-width-1-4@s"
-          >
-            Clear
-          </button>
         </form>
-        <hr />
       </div>
     );
   }
@@ -165,7 +170,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
-  mapStateToProps,
-  { addJob }
-)(AddJobsForm);
+export default connect(mapStateToProps, { addJob })(AddJobsForm);

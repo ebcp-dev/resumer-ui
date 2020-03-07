@@ -1,5 +1,4 @@
 import React from 'react';
-import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 const SelectListGroup = ({ name, value, error, info, onChange, options }) => {
@@ -9,19 +8,14 @@ const SelectListGroup = ({ name, value, error, info, onChange, options }) => {
     </option>
   ));
   return (
-    <div className="uk-margin">
-      {info && <p className="uk-text-primary">{info}</p>}
-      <select
-        className={classnames('uk-select', {
-          'uk-form-danger': error
-        })}
-        name={name}
-        value={value}
-        onChange={onChange}
-      >
-        {selectOptions}
-      </select>
-      {error && <p className="uk-text-danger">{error}</p>}
+    <div className="field">
+      <label className="label">{info}</label>
+      <div className="select is-fullwidth">
+        <select name={name} value={value} onChange={onChange}>
+          {selectOptions}
+        </select>
+      </div>
+      {error && <p className="help has-text-danger">{error}</p>}
     </div>
   );
 };

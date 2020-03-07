@@ -7,6 +7,9 @@ import { getCurrentProfile } from '../../actions/profileActions';
 import '../../css/pages/Profile.css';
 import LoadingComponent from '../common/LoadingComponent';
 
+import CreateProfile from './CreateProfile';
+import EditProfile from './EditProfile';
+
 class Profile extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
@@ -25,89 +28,44 @@ class Profile extends Component {
       if (Object.keys(profile).length > 0) {
         // Set profile status label
         if (profile.status === 'Not Looking') {
-          userStatus = '';
+          userStatus = 'is-info';
         }
         if (profile.status === 'Actively Looking') {
-          userStatus = 'uk-label-warning';
+          userStatus = 'is-success';
         }
         if (profile.status === 'Interviewing') {
-          userStatus = 'uk-label-danger';
-        }
-        if (profile.status === 'Offered') {
-          userStatus = 'uk-label-success';
+          userStatus = 'is-primary';
         }
         profileContent = (
-          <div>
-            <h3 className="uk-text-lead">{profile.username}</h3>
-            <p className="uk-text-meta">
+          // Display user's profile details
+          <div className="box">
+            <h1 className="title">{profile.username}</h1>
+            <h2 className="subtitle">
               Joined: {dateJoined.slice(4, dateJoined.length)}
-            </p>
-            <span className={`uk-label ${userStatus}`}>{profile.status}</span>
+            </h2>
+            <span className={`tag ${userStatus}`}>{profile.status}</span>
             <hr />
-            {(profile.website || profile.linkedin || profile.github) && (
-              <p>Links:</p>
-            )}
-            <ul className="uk-list">
-              <li>
-                {profile.website && (
-                  <a href={profile.website} target="_blank">
-                    Website
-                  </a>
-                )}
-              </li>
-              <li>
-                {profile.linkedin && (
-                  <a href={profile.linkedin} target="_blank">
-                    LinkedIn
-                  </a>
-                )}
-              </li>
-              <li>
-                {profile.github && (
-                  <a href={profile.github} target="_blank">
-                    GitHub
-                  </a>
-                )}
-              </li>
-            </ul>
-            <p>Contact:</p>
-            <a className="uk-link-text" href={`mailto:${user.email}`}>
-              {user.email}
-            </a>
+            <EditProfile />
           </div>
         );
       } else {
         // User is logged in but has no profile
         profileContent = (
-          <div>
-            <h3 className="uk-text-lead">{user.email}</h3>
-            <p>
-              Go to edit profile to add details to your profile to profile to
-              personalize your account.
-            </p>
-            <p className="uk-text-meta">
+          <div className="box">
+            <h1 className="title">{user.email}</h1>
+            <p className="subtitle">Add details to your account.</p>
+            <p className="help">
               Joined: {dateJoined.slice(4, dateJoined.length)}
             </p>
+            <CreateProfile />
           </div>
         );
       }
     }
     return (
-      <div className="uk-offcanvas-content">
-        <div id="profile-details" uk-offcanvas="true">
-          <div className="uk-offcanvas-bar">
-            <button
-              className="uk-offcanvas-close"
-              type="button"
-              uk-close="true"
-            />
-            {profileContent}
-          </div>
-        </div>
-        <div className="uk-visible@m">
-          <div className="profile">{profileContent}</div>
-        </div>
-      </div>
+      <section className="section">
+        <div className="container">{profileContent}</div>
+      </section>
     );
   }
 }
@@ -123,7 +81,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(
-  mapStateToProps,
-  { getCurrentProfile }
-)(Profile);
+export default connect(mapStateToProps, { getCurrentProfile })(Profile);

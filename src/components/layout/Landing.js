@@ -9,45 +9,87 @@ class Landing extends Component {
   render() {
     const { user, isAuthenticated } = this.props.auth;
     return (
-      <div className="landing uk-section-default">
-        <div className="uk-container uk-flex uk-flex-center uk-flex-middle  uk-child-width-1-2@s">
-          <div className="uk-card uk-card-default uk-card-large uk-card-body uk-text-center welcome-card uk-light">
-            <div className="uk-card-media-top">
-              <img
-                src="./resumer-logo.png"
-                height="150px"
-                width="150px"
-                alt="Resumer logo"
-              />
+      <div>
+        <section className="hero is-dark">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title">Resumer</h1>
+              <h2 className="subtitle">
+                Track and manage your job applications.
+              </h2>
+              {isAuthenticated === true ? (
+                <div className="is-hidden-desktop">
+                  <div className="buttons">
+                    <Link to="/jobs" className="button is-primary">
+                      Jobs
+                    </Link>
+                    <Link to="/profile" className="button is-info">
+                      Profile
+                    </Link>
+                  </div>
+                  <h2 className="title is-4">Welcome back {user.email}</h2>
+                </div>
+              ) : (
+                <div className="is-hidden-desktop">
+                  <div className="buttons">
+                    <Link to="/signup" className="button is-primary">
+                      Sign Up
+                    </Link>
+                    <Link to="/login" className="button is-info">
+                      Login
+                    </Link>
+                  </div>
+                </div>
+              )}
             </div>
-            {isAuthenticated === true ? (
-              <div>
-                <h3>Welcome {user.email}</h3>
-                <p>Keep track of your job applications</p>
-                <Link to="/dashboard">
-                  <button className="uk-button uk-button-secondary">
-                    Get started
-                  </button>
-                </Link>
-              </div>
-            ) : (
-              <div>
-                <h3>Welcome to Resumer</h3>
-                <p>Manage and keep track of your job applications</p>
-                <Link to="/login">
-                  <button className="uk-button uk-button-secondary">
-                    Login
-                  </button>
-                </Link>
-                <Link to="/login">
-                  <button className="uk-button uk-button-secondary">
-                    Sign Up
-                  </button>
-                </Link>
-              </div>
-            )}
           </div>
-        </div>
+        </section>
+        <section className="hero is-warning">
+          <div className="hero-body">
+            <div className="container">
+              <h2 className="subtitle">
+                Use an interactive data grid to track your job applications.
+              </h2>
+            </div>
+            <br />
+            <div className="columns">
+              <div className="column">
+                <div className="card">
+                  <div className="card-image">
+                    <figure className="image is-4by3">
+                      <img
+                        src="https://cdn.pixabay.com/photo/2018/11/24/02/05/lichterkette-3834926_1280.jpg"
+                        alt="Placeholder"
+                      />
+                    </figure>
+                  </div>
+                  <div className="card-content">
+                    <div className="content">
+                      Powered by ag-Grid. <a>ag-grid</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="column">
+                <div className="card">
+                  <div className="card-image">
+                    <figure className="image is-4by3">
+                      <img
+                        src="https://cdn.pixabay.com/photo/2018/11/29/19/29/autumn-3846345_1280.jpg"
+                        alt="Placeholder"
+                      />
+                    </figure>
+                  </div>
+                  <div className="card-content">
+                    <div className="content">
+                      Lorem ipsum dolor sit amet, adipiscing elit.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     );
   }

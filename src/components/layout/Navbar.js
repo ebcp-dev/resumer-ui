@@ -18,58 +18,38 @@ class Navbar extends Component {
   render() {
     const { isAuthenticated } = this.props.auth;
 
-    const authLinks = (
-      <ul className="uk-navbar-nav">
-        <li className="uk-active">
-          <Link
-            className="nav-link"
-            to=""
-            onClick={this.onLogoutClick.bind(this)}
-          >
-            Logout
-          </Link>
-        </li>
-      </ul>
-    );
+    const authLinks = [
+      <Link key="0" className="navbar-item" to="/jobs">
+        Jobs
+      </Link>,
+      <Link key="1" to="/profile" className="navbar-item">
+        Profile
+      </Link>,
+      <Link
+        key="2"
+        to=""
+        className="navbar-item"
+        onClick={this.onLogoutClick.bind(this)}
+      >
+        Logout
+      </Link>
+    ];
 
-    const guestLinks = (
-      <ul className="uk-navbar-nav">
-        <li className="uk-active">
-          <Link className="nav-link" to="/signup">
-            Sign Up
-          </Link>
-        </li>
-        <li>
-          <Link className="nav-link" to="/login">
-            Login
-          </Link>
-        </li>
-      </ul>
-    );
+    const guestLinks = [
+      <Link key="0" to="/signup" className="navbar-item">
+        Sign Up
+      </Link>,
+      <Link key="1" to="/login" className="navbar-item">
+        Login
+      </Link>
+    ];
 
     return (
-      <nav
-        id="navbar"
-        className="uk-navbar-container navbar uk-light"
-        uk-navbar="true"
-      >
-        <div className="uk-navbar-left">
-          <ul className="uk-navbar-nav">
-            <li className="uk-active">
-              <Link className="nav-link" to="/">
-                Resumer
-              </Link>
-            </li>
-            <li className="uk-active">
-              {isAuthenticated && (
-                <Link className="nav-link" to="/dashboard">
-                  Dashboard
-                </Link>
-              )}
-            </li>
-          </ul>
-        </div>
-        <div className="uk-navbar-right">
+      <nav className="navbar is-primary" aria-label="main navigation">
+        <div className="navbar-brand">
+          <Link to="/" className="navbar-item">
+            Resumer
+          </Link>
           {isAuthenticated ? authLinks : guestLinks}
         </div>
       </nav>
@@ -86,7 +66,6 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(
-  mapStateToProps,
-  { logoutUser, clearCurrentProfile }
-)(Navbar);
+export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(
+  Navbar
+);
