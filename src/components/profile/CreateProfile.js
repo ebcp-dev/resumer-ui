@@ -136,7 +136,7 @@ class CreateProfile extends Component {
             error={errors.dribbble}
           />
           <TextFieldGroup
-            placeholder="twitter"
+            placeholder="Twitter"
             name="twitter"
             type="url"
             icon="fab fa-twitter"
@@ -144,8 +144,8 @@ class CreateProfile extends Component {
             onChange={this.onChange}
             error={errors.twitter}
           />
-          <button className="button is-link">Submit</button>
           <hr />
+          <button className="button is-link">Submit</button>
         </form>
       </div>
     );

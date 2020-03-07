@@ -17,7 +17,7 @@ const TextFieldGroup = ({
 }) => {
   return (
     <div className={classnames('field', { 'has-addons': addons })}>
-      <label className="label">{info}</label>
+      {info && <label className="label">{info}</label>}
       <div className="control is-expanded has-icons-left">
         <input
           className={classnames('input', { 'is-info': required })}

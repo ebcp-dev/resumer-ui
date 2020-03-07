@@ -99,6 +99,7 @@ class EditProfile extends Component {
               placeholder="Username *"
               name="username"
               type="text"
+              addons={true}
               required={true}
               icon="fas fa-portrait"
               value={username}
@@ -119,6 +120,7 @@ class EditProfile extends Component {
               placeholder="Website"
               name="website"
               type="url"
+              addons={true}
               icon="fas fa-desktop"
               value={website}
               onChange={this.onChange}
@@ -128,6 +130,7 @@ class EditProfile extends Component {
               placeholder="LinkedIn"
               name="linkedin"
               type="url"
+              addons={true}
               icon="fab fa-linkedin"
               value={linkedin}
               onChange={this.onChange}
@@ -137,6 +140,7 @@ class EditProfile extends Component {
               placeholder="Github"
               name="github"
               type="url"
+              addons={true}
               icon="fab fa-github"
               value={github}
               onChange={this.onChange}
@@ -146,6 +150,7 @@ class EditProfile extends Component {
               placeholder="Stack Overflow"
               name="stackoverflow"
               type="url"
+              addons={true}
               icon="fab fa-stack-overflow"
               value={stackoverflow}
               onChange={this.onChange}
@@ -155,22 +160,24 @@ class EditProfile extends Component {
               placeholder="Dribbble"
               name="dribbble"
               type="url"
+              addons={true}
               icon="fab fa-dribbble"
               value={dribbble}
               onChange={this.onChange}
               error={errors.dribbble}
             />
             <TextFieldGroup
-              placeholder="twitter"
+              placeholder="Twitter"
               name="twitter"
               type="url"
+              addons={true}
               icon="fab fa-twitter"
               value={twitter}
               onChange={this.onChange}
               error={errors.twitter}
             />
-            <button className="button is-link">Save Changes</button>
             <hr />
+            <button className="button is-link">Save Changes</button>
           </form>
         </div>
       );
