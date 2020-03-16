@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
+import jobsScreenShot from '../../assets/img/resumer-jobs.png';
+import profileScreenShot from '../../assets/img/resumer-profiles.png';
 
 import '../../css/pages/Layout.css';
 
@@ -56,10 +58,10 @@ class Landing extends Component {
               <div className="column">
                 <div className="card">
                   <div className="card-image">
-                    <figure className="image is-4by3">
+                    <figure className="image is-16by9">
                       <img
-                        src="https://cdn.pixabay.com/photo/2018/11/24/02/05/lichterkette-3834926_1280.jpg"
-                        alt="Placeholder"
+                        src={jobsScreenShot}
+                        alt="Resumer job application management with ag-Grid."
                       />
                     </figure>
                   </div>
@@ -73,17 +75,15 @@ class Landing extends Component {
               <div className="column">
                 <div className="card">
                   <div className="card-image">
-                    <figure className="image is-4by3">
+                    <figure className="image is-16by9">
                       <img
-                        src="https://cdn.pixabay.com/photo/2018/11/29/19/29/autumn-3846345_1280.jpg"
-                        alt="Placeholder"
+                        src={profileScreenShot}
+                        alt="Share your profile to others."
                       />
                     </figure>
                   </div>
                   <div className="card-content">
-                    <div className="content">
-                      Lorem ipsum dolor sit amet, adipiscing elit.
-                    </div>
+                    <div className="content">Share your profile to others.</div>
                   </div>
                 </div>
               </div>

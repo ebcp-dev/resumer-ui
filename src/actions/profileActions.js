@@ -4,7 +4,8 @@ import {
   GET_PROFILE,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
-  GET_ERRORS
+  GET_ERRORS,
+  GET_USER_PROFILE
 } from './types';
 
 // Get current profile
@@ -25,6 +26,29 @@ export const getCurrentProfile = () => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_PROFILE,
+        payload: {}
+      })
+    );
+};
+
+// Get profile by username
+export const getProfile = username => dispatch => {
+  dispatch(setProfileLoading());
+  axios
+    .get(`/api/profile/${username}`)
+    .then(res => {
+      dispatch({
+        type: GET_USER_PROFILE,
+        payload: res.data || {}
+      });
+      dispatch({
+        type: GET_ERRORS,
+        payload: {}
+      });
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_USER_PROFILE,
         payload: {}
       })
     );

@@ -18,6 +18,7 @@ import SignUp from './components/auth/SignUp';
 import Login from './components/auth/Login';
 import Jobs from './components/jobs/Jobs';
 import Profile from './components/profile/Profile';
+import ViewProfile from './components/profile/ViewProfile';
 
 import './css/App.css';
 
@@ -59,6 +60,9 @@ class App extends Component {
             </Switch>
             <Switch>
               <PrivateRoute path="/profile" component={Profile} />
+            </Switch>
+            <Switch>
+              <PrivateRoute path="/user/:username" component={ViewProfile} />
             </Switch>
             <Footer />
           </div>

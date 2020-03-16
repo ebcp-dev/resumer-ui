@@ -72,7 +72,6 @@ class JobsTable extends Component {
     if (jobsList === null || loading) {
       tableContent = <LoadingComponent />;
     } else {
-      console.log(jobsList);
       tableContent = (
         <div className="ag-theme-balham ag-grid-table">
           <p className="subtitle">Jobs ({jobsList.length})</p>
