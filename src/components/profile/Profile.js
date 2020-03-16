@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profileActions';
 
 import '../../css/pages/Profile.css';
-import LoadingComponent from '../common/LoadingComponent';
 
 import CreateProfile from './CreateProfile';
 import EditProfile from './EditProfile';
+import LoadingComponent from '../common/LoadingComponent';
 
 class Profile extends Component {
   componentDidMount() {

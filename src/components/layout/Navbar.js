@@ -22,11 +22,14 @@ class Navbar extends Component {
       <Link key="0" className="navbar-item" to="/jobs">
         Jobs
       </Link>,
-      <Link key="1" to="/profile" className="navbar-item">
+      <Link key="1" to="/stats" className="navbar-item">
+        Stats
+      </Link>,
+      <Link key="2" to="/profile" className="navbar-item">
         Profile
       </Link>,
       <Link
-        key="2"
+        key="3"
         to=""
         className="navbar-item"
         onClick={this.onLogoutClick.bind(this)}
