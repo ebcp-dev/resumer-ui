@@ -14,6 +14,7 @@ import PrivateRoute from './components/common/PrivateRoute';
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Footer from './components/layout/Footer';
+import NotFound from './components/layout/NotFound';
 import SignUp from './components/auth/SignUp';
 import Login from './components/auth/Login';
 import Jobs from './components/jobs/Jobs';
@@ -68,6 +69,7 @@ class App extends Component {
             <Switch>
               <PrivateRoute path="/stats" component={Stats} />
             </Switch>
+            <Route path="*" exact={true} component={NotFound} />
             <Footer />
           </div>
         </Router>
