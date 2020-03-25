@@ -40,6 +40,7 @@ class Profile extends Component {
           // Display user's profile details
           <div className="box">
             <h1 className="title">{profile.username}</h1>
+            <h2 className="subtitle">Email: {user.email}</h2>
             <h2 className="subtitle">
               Joined: {dateJoined.slice(4, dateJoined.length)}
             </h2>
