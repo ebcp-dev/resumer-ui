@@ -14,55 +14,14 @@ class Jobs extends Component {
     super(props);
 
     this.state = {
-      role: '',
-      company: '',
-      link: '',
-      location: '',
-      seniority: '',
-      salaryRange: '',
       errors: {}
     };
-
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.clearForm = this.clearForm.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
-  }
-
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  clearForm(e) {
-    e.preventDefault();
-    this.setState({
-      role: '',
-      company: '',
-      link: '',
-      location: '',
-      seniority: '',
-      salaryRange: ''
-    });
-  }
-
-  onSubmit(e) {
-    e.preventDefault();
-
-    const newJob = {
-      role: this.state.role,
-      company: this.state.company,
-      link: this.state.link,
-      location: this.state.location,
-      seniority: this.state.seniority,
-      salaryRange: this.state.salaryRange
-    };
-
-    this.props.addJob(newJob);
   }
 
   render() {

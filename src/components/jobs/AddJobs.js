@@ -15,9 +15,9 @@ class AddJobsForm extends Component {
       role: '',
       company: '',
       link: '',
-      location: '',
-      seniority: '',
-      salaryRange: '',
+      location: null,
+      seniority: null,
+      salaryRange: null,
       errors: {}
     };
 
@@ -42,9 +42,9 @@ class AddJobsForm extends Component {
       role: '',
       company: '',
       link: '',
-      location: '',
-      seniority: '',
-      salaryRange: '',
+      location: null,
+      seniority: null,
+      salaryRange: null,
       errors: {}
     });
   }
